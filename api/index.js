@@ -7,12 +7,12 @@ const bookingRoutes = require('./routes/bookings');
 const reviewsRouter = require('./routes/reviews');
 require('dotenv').config();
 const methodOverride = require('method-override');
-const multer = require('multer'); // Add multer
+const multer = require('multer');
 
 const app = express();
 
 // Multer setup for parsing multipart/form-data
-const upload = multer({ storage: multer.memoryStorage() }); // Use memory storage for simplicity
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Middleware
 app.use(express.json());
@@ -39,14 +39,30 @@ app.use('/api/reviews', reviewsRouter);
 // Root route
 app.get('/', async (req, res) => {
   try {
-    const response = await fetch('https://malala-tau.vercel.app/api/tours/counts-by-location');
-    if (!response.ok) {
-      throw new Error(`Failed to fetch tour counts: ${response.status}`);
-    }
-    const tourCounts = await response.json();
     const Tour = require('../models/Tour');
+
+    // Directly query tour counts by location
+    const tourCounts = await Tour.aggregate([
+      { $group: { _id: '$location', count: { $sum: 1 } } },
+      { $project: { location: '$_id', count: 1, _id: 0 } }
+    ]);
+
+    const tourCountMap = tourCounts.reduce((acc, { location, count }) => {
+      acc[location] = count;
+      return acc;
+    }, {});
+
+    const allProvinces = [
+      'Western Cape', 'Eastern Cape', 'Northern Cape', 'Free State',
+      'KwaZulu-Natal', 'North West', 'Gauteng', 'Mpumalanga', 'Limpopo'
+    ];
+    allProvinces.forEach(province => {
+      if (!tourCountMap[province]) tourCountMap[province] = 0;
+    });
+
+    console.log('Tour counts by location:', tourCountMap);
     const tours = await Tour.find();
-    res.render('index', { tourCounts, tours });
+    res.render('index', { tourCounts: tourCountMap, tours });
   } catch (error) {
     console.error('Error in root route:', error);
     res.status(500).send('Server error');
