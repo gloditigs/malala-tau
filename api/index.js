@@ -39,7 +39,7 @@ app.use('/api/reviews', reviewsRouter);
 // Root route
 app.get('/', async (req, res) => {
   try {
-    const response = await fetch('http://localhost:3000/api/tours/counts-by-location');
+    const response = await fetch('https://malala-tau.vercel.app/api/tours/counts-by-location');
     if (!response.ok) {
       throw new Error(`Failed to fetch tour counts: ${response.status}`);
     }

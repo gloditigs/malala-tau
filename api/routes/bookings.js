@@ -85,9 +85,9 @@ router.post('/', async (req, res) => {
     const payfastData = {
       merchant_id: '24154510',
       merchant_key: 'hulrvjrdyo3rm',
-      return_url: 'https://1234abcd.ngrok.io/success',
-      cancel_url: 'https://1234abcd.ngrok.io/cancel',
-      notify_url: 'https://1234abcd.ngrok.io/api/bookings/notify',
+      return_url: 'https://malala-tau.vercel.app/success',
+      cancel_url: 'https://malala-tau.vercel.app/cancel',
+      notify_url: 'https://malala-tau.vercel.app/api/bookings/notify',
       amount: total,
       item_name: `Booking for ${tourName}`
     };
