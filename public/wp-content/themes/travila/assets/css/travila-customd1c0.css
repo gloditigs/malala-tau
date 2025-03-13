@@ -1,0 +1,695 @@
+/* Search results  CSS */
+.search-results .blog__post-item.type-product {
+    max-width: 800px;
+}
+.search-results .blog__post-item.type-product .blog-content:not(.blog__details-content) .post-text {
+    margin: 0 0;
+}
+.search-results .blog__post-item.type-product .blog-content .post-text p {
+    margin: 0 0;
+}
+.search-results .blog__post-item.type-product .blog-content .title {
+    margin-bottom: 15px;
+}
+.mc4wp-alert {
+    margin: 20px 0 0;
+}
+.mc4wp-alert p {
+    margin: 0 0;
+    color: #fff;
+}
+.mc4wp-success p {
+    color: green;
+}
+.white-wpcf7 form .wpcf7-response-output {
+    margin: 0 0;
+    color: #fff;
+    padding: 0 0;
+    border: none;
+}
+.footer__area {
+    background-color: #000;
+}
+.footer-top {
+    padding: 100px 0 50px;
+}
+.footer-widget {
+    margin: 0 0 50px;
+}
+.footer__bottom {
+    padding: 18px 0;
+    border-top: 1px solid #383838;
+}
+.breadcumb-wrapper.hide-overlay:after {
+    opacity: 0;
+}
+.comment-reply-link {
+    background: #EEEFF3;
+    padding: 9px 18px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.comment-reply-link:hover {
+    background: var(--unit-primary-color);
+    color: #fff !important;
+}
+
+
+
+/* Elementor Custom CSS */
+.travila-menu-not-showing {
+    padding: 25px 0;
+}
+.counter-left-align .elementor-counter-number-wrapper {
+    margin-bottom: 18px;
+}
+.counter-left-align .elementor-counter .elementor-counter-number-prefix {
+    flex-grow: 0;
+}
+.counter-left-align .elementor-counter .elementor-counter-title {
+    text-align: left;
+}
+.wpcf7 form .wpcf7-response-output {
+    margin: 2em 0 0;
+    padding: 0 0;
+    border: none;
+}
+.counter-left-align.counter-small .elementor-counter-number-wrapper {
+    margin-bottom: 14px;
+}
+.sticky-height-active {
+    display: block;
+    height: 112px;
+}
+.footer-menu-list a {
+    position: relative;
+}
+.footer-menu-list a:after {
+    content: "";
+    position: absolute;
+    right: 100%;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    height: 2px;
+    background-color: #000;
+    transition: all ease 0.4s;
+    border: 0;
+    margin: 0;
+    display: inline-block;
+    width: auto;
+}
+.footer-menu-list a:hover:after {
+    right: 0;
+}
+.footer-menu-list.white-color a:after {
+    background: #000;
+}
+.response-text-center .wpcf7-response-output {
+    text-align: center;
+}
+.footer-social-list .elementor-social-icon svg {
+    width: .8em;
+}
+.footer-contact textarea.form-control.style-border,
+textarea.style-border {
+    height: 170px;
+    min-height: 170px;
+}
+.d-flex .elementor-icon-wrapper {
+    display: flex;
+}
+.link-secondary-2 {
+    display: inline-block;
+}
+svg.e-font-icon-svg {
+    width: 16px;
+    height: 16px;
+}
+.contact-info > p {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.tg-btn svg path {
+    stroke: currentColor;
+}
+.top-right-header .dropdown-account,
+.top-right-header .dropdown-cart {
+    top: 100%;
+}
+.swiper-testimonial-width {
+    width: 1200px;
+}
+.card-testimonial p {
+    font-size: 14px;
+}
+.tg-thumb img {
+    object-fit: cover !important;
+}
+.travila-slider .title {
+    font-size: 64px;
+    color: #000;
+}
+.travila-slider .desc {
+    font-size: 24px;
+    color: #000;
+}
+.swiper-testimonial-width2 {
+    width: 1800px;
+}
+.card-info .text-lg-bold {
+    font-size: 18px;
+}
+.slider-two-box .title {
+    font-size: 52px;
+}
+.slider-two-box .list-disc {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: 500;
+}
+.slider-two-box .download-apps {
+    margin-top: 52px;
+}
+.line-height-1 {
+    line-height: 1;
+}
+.border-y {
+    border-bottom: 1px solid var(--bs-border-color);
+    border-top: 1px solid var(--bs-border-color);
+}
+.fact-item-number h3 {
+    font-size: 44px;
+    margin: 0;
+}
+.fact-item-number p {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0;
+}
+.right-0 {
+    right: 0 !important;
+}
+.img-h-100 img {
+    height: 100% !important;
+    object-fit: cover;
+}
+.fs-24 {
+    font-size: 24px;
+    line-height: 32px;
+}
+.swiper-group-animate .card-info .card-title a,
+.elementor-widget-tr-booking-layout .card-info .card-title a {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 800;
+}
+.card-team .card-info .text-xs-medium {
+    font-size: 14px;
+    line-height: 22px;
+}
+.position-thumbnail .banner-slide img {
+    height: 154px;
+    object-fit: cover;
+}
+.box-grid-tours.wow.fadeIn .card-price>p {
+    display: none;
+}
+.box-grid-tours .card-title>a {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+}
+#slider-half-screen .swiper-group-journey,
+.slider-half-screen .swiper-group-journey {
+	width: 2000px;
+}
+#my_account_page_wrapper ul.my_account_nav_list {
+    padding: 0;
+    margin: 0;
+}
+.my_account_user_profile {
+    gap: 20px;
+}
+.my_account_user_info {
+    flex-grow: 1;
+}
+table.my_account_user_info_table {
+    width: 100%;
+}
+table.my_account_my_bookings_table {
+    width: 100%;
+}
+table.my_account_my_bookings_table {
+    width: 100%;
+}
+.my_account_inner_page_block h2 {
+    margin: 0 0 20px;
+}
+#my_account_page_wrapper .my_account_user_info_table tbody td {
+    text-align: left;
+    font-weight: 500;
+}
+.my_account_page_content_wrapper {
+    padding: 20px 20px;
+    flex-grow: 2;
+    flex-shrink: 5;
+    background-color: var(--bs-neutral-100);
+    align-self: stretch;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid var(--bs-border-color);
+}
+.my_account_page_nav_list {
+    padding: 20px;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 10px;
+}
+.my_account_nav_item_1 .my_account_nav_item_title {
+    padding-left: 15px;
+    background: var(--bs-neutral-100);
+}
+.my_account_nav_item_title {
+    padding: 7px 15px;
+    display: block;
+}
+.my_account_nav_item {
+    border-radius: 5px;
+    overflow: hidden;
+}
+.my_account_nav_item.my_account_nav_item_with_menu > .my_account_nav_item_title {
+    color: var(--bs-neutral-1000);
+}
+.my_account_nav_item a {
+    display: block;
+    color: var(--bs-neutral-500);
+    font-weight: 500;
+}
+.my_account_nav_item_current,
+.my_account_nav_item_current .my_account_nav_item_title {
+    background-color: var(--bs-brand-secondary);
+}
+.my_account_nav_item_current.my_account_nav_item a {
+    color: var(--bs-neutral-1000) !important;
+}
+.my_account_nav_item_logout {
+    margin-top: 2rem;
+    border-top: 1px solid var(--bs-border-color);
+}
+div#my_account_page_wrapper table {
+    width: 100%;
+}
+div#my_account_page_wrapper table td {
+    text-align: left;
+}
+
+[data-bs-theme=dark] .travila-page-content table td {
+    border-color: #424242;
+    padding: 12px 17px;
+}
+div#checkout_form_block table {
+    width: 100%;
+}
+div#checkout_form_block > h2 {
+    margin: 0 0 25px;
+}
+#my_account_page_wrapper ul {
+    padding-left: 0;
+}
+#checkout_form .input_group,
+#edit_user_profile .input_group {
+    justify-content: flex-start;
+    column-gap: 50px;
+}
+#checkout_form .input_group > div input, #edit_user_profile .input_group > div input {
+    background: transparent;
+    border: none;
+}
+.checkout_form_input_underline {
+    background-color: var(--bs-border-color);
+}
+.checkout_form_input_ripple {
+    height: 1px;
+    color: var(--bs-neutral-400);
+}
+#checkout_form_block table tbody td {
+    text-align: left;
+}
+td.order_item_row_image {
+    text-align: center !important;
+}
+#checkout_form_block .submit_group .btn {
+    width: 100%;
+    padding: 12px 22px;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 700;
+    background-color: var(--bs-brand-secondary);
+    border-radius: 50px;
+    color: var(--bs-color-1000) !important;
+}
+.order_items_row_total, table td.order_items_row_total,
+table td.order_items_row_total_amount{
+    background-color: var(--bs-neutral-100);
+}
+.widget_travila_booking_posts .sidebar-left {
+    border: none;
+}
+.widget_travila_booking_posts .box-popular-posts {
+    padding: 15px 0px 0px 0px;
+}
+.widget_travila_booking_image_ad .sidebar-banner {
+    margin-bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+@media (max-width: 767px) {
+    .my_account_page_nav_wrapper {
+        padding: 0;
+        margin: 0 0 10px;
+        width: 100%;
+    }
+    .my_account_page_nav_wrapper .my_account_page_nav_selector_i {
+        right: 1em;
+        top: 17px;
+        padding: 0;
+    }
+    .my_account_user_profile {
+        flex-direction: column;
+    }
+}
+table.table_order_items_details,
+.table_order_items_details table,
+table.table_customer_details {
+    width: 100% !important;
+}
+.babe_message_order {
+    margin: 0 0 2rem;
+}
+div#booking_form_block .booking_form_input_label {
+    font-weight: 700;
+    color: var(--bs-neutral-1000) !important;
+}
+#booking_form_total .currency_amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--bs-neutral-1000) !important;
+    font-size: 20px;
+}
+.box-savedplaces h6.text-xl-bold {
+    font-size: 15px;
+    line-height: 1.6;
+}
+.card-place .card-info .card-info-top .card-rate {
+    flex: 0 0 auto;
+}
+.card-place .card-info .card-info-top {
+    gap: 10px;
+}
+.box-banner-activities .banner-slide-activity img {
+    border-radius: 8px;
+    height: 680px;
+    width: 100%;
+    object-fit: cover;
+}
+div#short-search-form .box-bottom-search>*:nth-child(3),
+div#short-search-form .box-bottom-search>*:nth-child(4) {
+    display: none;
+}
+div#short-search-form .box-bottom-search>* {
+    width: 33.33%;
+}
+
+[data-bs-theme=dark] {
+    .text-dark-white .elementor-icon path {
+        stroke: var(--bs-neutral-1000) !important;
+    }
+    .text-dark-white,
+    .text-dark-white .title,
+    .text-dark-white .elementor-icon-box-title,
+    .dark-text-white .elementor-icon-list-text {
+        color: var(--bs-neutral-1000) !important;
+    }
+    .background-4-dark {
+        background-color: #242226 !important;
+    }
+    .bg-overlay-opacity::before {
+        opacity: .05;
+    }
+    #booking_form_block button.btn.button.booking_form_submit {
+        background-color: #313131;
+    }
+    .elementor-widget-text-editor {
+        color: #D6D7D8 !important;
+    }
+
+}
+.swiper-blog-post .swiper-group-animate .card-title .text-xl-bold {
+    font-size: 20px;
+    line-height: 32px;
+}
+.popular-hotel-card .card-info .card-title a {
+    font-size: 18px !important;
+    line-height: 24px !important;
+}
+.popular-hotel-card .card-info .card-facilities {
+    display: none !important;
+}
+#slider-overlay-search {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    z-index: 1;
+}
+.fact-yellow-bg .fact-item-number h3 {
+    color: #000;
+}
+.fact-yellow-bg .fact-item-number p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.social-title-top .box-socials-footer-cover {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.social-title-top .box-socials-footer-cover > p {
+    width: 100%;
+    flex: 0 0 100%;
+}
+.list-style-inline ul.menu-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px 20px;
+}
+.travila-booking-pagination span.page-numbers.current {
+    background: #000;
+    color: #fff;
+}
+.contact-img-p img {
+    height: 100% !important;
+    object-fit: cover;
+}
+.flex-column .card-why-travel {
+    flex-direction: column;
+    gap: 16px;
+}
+.margin-bottom-0 .box-collapse,
+.margin-bottom-0 .box-collapse ul,
+.margin-bottom-0 .box-collapse ul li:last-child {
+    margin-bottom: 0 !important;
+}
+.to-book-archive {
+    padding: 60px 0 100px;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+.to-book-archive .box-list-tours .card-journey-small .card-image,
+.to-book-archive .box-grid-tours .card-journey-small .card-image {
+    height: 300px;
+    line-height: normal;
+}
+.to-book-archive .pagination {
+    justify-content: center;
+}
+.mobile-header-wrapper-inner .mega-menu {
+    display: none !important;
+}
+.booking-form.widget_block {
+    display: none !important;
+}
+.rtrs-review-form .rtrs-form-group .rtrs-form-control {
+    line-height: 1.7 !important;
+}
+
+/* Version 1.1 Update CSS */
+.elementor-editor-active.travila-header-template .tg-header__area.transparent-header {
+    position: relative !important;
+    background-color: rgba(0, 0, 0, .2);
+}
+.elementor-editor-active:not(.travila-header-template) .tg-header__area.transparent-header {
+    pointer-events: none;
+}
+.admin-bar .elementor-widget-tg-header .transparent-header {
+    margin-top: 0 !important;
+}
+.admin-bar .elementor-widget-tg-header .transparent-header.sticky-menu {
+    margin-top: 32px !important;
+}
+.list-style-none ul li {
+    list-style: none;
+}
+.newsletter-button-full .form-newsletter .form-control {
+    margin-right: 0;
+    height: 55px;
+    padding: 13px 24px 13px 50px;
+    width: 100% !important;
+}
+.newsletter-button-full .form-newsletter .btn-brand-secondary {
+    width: 100%;
+    border: none;
+    height: 50px;
+}
+
+/* Elementor Responsive */
+@media (max-width: 1500px) {
+.box-banner-activities .banner-slide-activity img {
+    height: 480px;
+}
+
+}
+
+@media (max-width: 1199.98px) {
+
+
+}
+
+@media (max-width: 991.98px){
+.sticky-height-active {
+    height: 90px;
+}
+.footer-contact {
+    text-align: center;
+}
+.image-position-css {
+    position: relative !important;
+}
+.top-md-auto {
+    top: auto !important;
+}
+#checkout_form .input_group, #edit_user_profile .input_group {
+    display: block;
+}
+#slider-overlay-search,
+#car-position-md,
+#property-banner-img,
+#property-banner-img02 {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+}
+#property-banner-img {
+    height: 500px !important;
+}
+.contact-img-p.h-100 {
+    position: relative !important;
+    height: 400px !important;
+}
+.box-banner-activities .banner-slide-activity img {
+    height: 380px;
+}
+
+}
+
+@media (max-width: 767.98px) {
+.counter-left-align .elementor-counter,
+.counter-left-align .elementor-counter .elementor-counter-title {
+    text-align: center;
+}
+.counter-left-align .elementor-counter-number-wrapper {
+    justify-content: center;
+}
+.counter-left-align .elementor-counter .elementor-counter-number-suffix {
+    flex-grow: initial;
+}
+.counter-left-align .elementor-counter-number-wrapper {
+    margin-bottom: 10px;
+}
+
+.counter-small .elementor-counter,
+.counter-small .elementor-counter .elementor-counter-title {
+    text-align: left;
+}
+.counter-small .elementor-counter-number-wrapper {
+    justify-content: flex-start;
+}
+.counter-small .elementor-counter .elementor-counter-number-suffix {
+    flex-grow: initial;
+}
+.sticky-height-active {
+    height: 84px;
+}
+.admin-bar .elementor-widget-tg-header .transparent-header.sticky-menu {
+    margin-top: 0px !important;
+}
+#slider-half-screen .swiper-group-journey,
+.slider-half-screen .swiper-group-journey {
+    width: 100%;
+}
+.swiper-testimonial-width {
+    width: 100%;
+}
+.card-testimonial {
+    max-width: 100% !important;
+    padding: 34px 25px !important;
+}
+.swiper-testimonial-width2 {
+    width: 100%;
+}
+div#short-search-form .box-bottom-search>* {
+    width: 100%;
+}
+#positioon-xs-devices {
+    position: relative;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.card-why-travel.card-why-travel-2 {
+    flex-direction: column;
+    gap: 20px;
+}
+#property-banner-img {
+    height: 350px !important;
+}
+.fact-item-number h3 {
+    font-size: 34px;
+}
+.fact-item-number p {
+    font-size: 16px;
+}
+.list-style-inline ul.menu-footer {
+    justify-content: center;
+    gap: 10px 15px;
+}
+.box-banner-activities .banner-slide-activity img {
+    height: 300px;
+}
+.box-banner-activities .slick-next,
+.box-banner-activities .slick-prev {
+    margin-top: 0 !important;
+}
+
+
+}

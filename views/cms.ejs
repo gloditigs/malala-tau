@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<main class="container">
+  <h1>Tour CMS</h1>
+
+  <!-- Add Tour Form -->
+  <section class="mb-5">
+    <h2>Add New Tour</h2>
+    <form id="add-tour-form" enctype="multipart/form-data" method="POST" action="/api/tours">
+      <div class="mb-3">
+        <label for="name" class="form-label">Tour Name *</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="coverImage" class="form-label">Cover Image *</label>
+        <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" required>
+      </div>
+      <div class="mb-3">
+        <label for="additionalImages" class="form-label">Additional Images (up to 10)</label>
+        <input type="file" class="form-control" id="additionalImages" name="additionalImages" accept="image/*" multiple>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location (Province in South Africa) *</label>
+        <select class="form-select" id="location" name="location" required>
+          <option value="" disabled selected>Select a province</option>
+          <option value="Eastern Cape">Eastern Cape</option>
+          <option value="Free State">Free State</option>
+          <option value="Gauteng">Gauteng</option>
+          <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+          <option value="Limpopo">Limpopo</option>
+          <option value="Mpumalanga">Mpumalanga</option>
+          <option value="Northern Cape">Northern Cape</option>
+          <option value="North West">North West</option>
+          <option value="Western Cape">Western Cape</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (ZAR) *</label>
+        <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required>
+      </div>
+      <div class="mb-3">
+        <label for="durationHours" class="form-label">Duration (Hours) *</label>
+        <input type="number" class="form-control" id="durationHours" name="durationHours" min="0" required>
+      </div>
+      <div class="mb-3">
+        <label for="durationDays" class="form-label">Duration (Days) *</label>
+        <input type="number" class="form-control" id="durationDays" name="durationDays" min="0" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description *</label>
+        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Tour</button>
+    </form>
+  </section>
+
+  <!-- Tour List -->
+  <section>
+    <h2>Existing Tours</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Price (ZAR)</th>
+          <th>Duration</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tours.forEach(tour => { %>
+          <tr>
+            <td><%= tour.name %></td>
+            <td><%= tour.location %></td>
+            <td><%= tour.price %></td>
+            <td><%= tour.durationDays %> days (<%= tour.durationHours %> hours)</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-tour" data-id="<%= tour._id %>">Edit</button>
+              <form action="/api/tours/<%= tour._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<!-- Edit Modal (Hidden by Default) -->
+<div id="edit-modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Edit Tour</h2>
+    <form id="edit-tour-form" enctype="multipart/form-data">
+        <input type="hidden" name="id">
+        
+        <div class="mb-3">
+          <label for="edit-name" class="form-label">Tour Name *</label>
+          <input type="text" class="form-control" id="edit-name" name="name" required>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-coverImage" class="form-label">Cover Image</label>
+          <div id="current-cover-image" class="mb-2">
+            <p>Current Cover Image:</p>
+            <img src="" alt="Current Cover Image" style="max-width: 200px; display: none;" id="cover-image-preview">
+          </div>
+          <input type="file" class="form-control" id="edit-coverImage" name="coverImage" accept="image/*">
+          <small class="form-text text-muted">Leave empty to keep the current image.</small>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-additionalImages" class="form-label">Additional Images</label>
+          <div id="current-additional-images" class="mb-2">
+            <p>Current Additional Images:</p>
+            <div id="additional-images-preview" class="d-flex flex-wrap gap-2"></div>
+          </div>
+          <input type="file" class="form-control" id="edit-additionalImages" name="additionalImages" accept="image/*" multiple>
+          <small class="form-text text-muted">Select new images to replace the current ones, or leave empty to keep them.</small>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-location" class="form-label">Location *</label>
+          <select class="form-select" id="edit-location" name="location" required>
+            <option value="" disabled>Select a province</option>
+            <option value="Eastern Cape">Eastern Cape</option>
+            <option value="Free State">Free State</option>
+            <option value="Gauteng">Gauteng</option>
+            <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+            <option value="Limpopo">Limpopo</option>
+            <option value="Mpumalanga">Mpumalanga</option>
+            <option value="Northern Cape">Northern Cape</option>
+            <option value="North West">North West</option>
+            <option value="Western Cape">Western Cape</option>
+          </select>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-price" class="form-label">Price (ZAR) *</label>
+          <input type="number" class="form-control" id="edit-price" name="price" step="0.01" min="0" required>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-durationHours" class="form-label">Duration (Hours) *</label>
+          <input type="number" class="form-control" id="edit-durationHours" name="durationHours" min="0" required>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-durationDays" class="form-label">Duration (Days) *</label>
+          <input type="number" class="form-control" id="edit-durationDays" name="durationDays" min="0" required>
+        </div>
+      
+        <div class="mb-3">
+          <label for="edit-description" class="form-label">Description *</label>
+          <textarea class="form-control" id="edit-description" name="description" rows="5" required></textarea>
+        </div>
+      
+        <button type="submit" class="btn btn-primary">Update Tour</button>
+      </form>
+  </div>
+</div>
+
+<script src="/wp-includes/js/jquery/jquery.minf43b.js"></script>
+<script>
+    $(document).ready(function() {
+      // Edit Tour Modal
+      $('.edit-tour').click(function() {
+        const tourId = $(this).data('id');
+        $.get(`/api/tours/${tourId}`, function(tour) {
+          $('#edit-modal input[name="id"]').val(tour._id);
+          $('#edit-name').val(tour.name);
+          $('#edit-location').val(tour.location);
+          $('#edit-price').val(tour.price);
+          $('#edit-durationHours').val(tour.durationHours);
+          $('#edit-durationDays').val(tour.durationDays);
+          $('#edit-description').val(tour.description);
+  
+          // Populate cover image preview
+          if (tour.coverImage) {
+            $('#cover-image-preview').attr('src', tour.coverImage).show();
+          } else {
+            $('#cover-image-preview').hide();
+          }
+  
+          // Populate additional images preview
+          $('#additional-images-preview').empty();
+          if (tour.additionalImages && tour.additionalImages.length > 0) {
+            tour.additionalImages.forEach(imgUrl => {
+              $('#additional-images-preview').append(
+                `<img src="${imgUrl}" alt="Additional Image" style="max-width: 100px;">`
+              );
+            });
+          }
+  
+          $('#edit-modal').show();
+        });
+      });
+  
+      $('.close').click(function() {
+        $('#edit-modal').hide();
+      });
+  
+      $('#edit-tour-form').submit(function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const tourId = formData.get('id');
+        $.ajax({
+          url: `/api/tours/${tourId}`,
+          type: 'PUT',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function() {
+            location.reload();
+          },
+          error: function(err) {
+            console.error(err);
+            alert('Error updating tour');
+          }
+        });
+      });
+    });
+  </script>
+
+<style>
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+  }
+  .close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+  }
+</style>
+
+</body>
+</html>
