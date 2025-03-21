@@ -37,18 +37,19 @@ router.post('/', async (req, res) => {
 
     // Define optional fields with defaults
     const optionalFields = {
-      children: children || '0', // Default to 0 if not provided
+      children: children || '0',
       country: country || 'Not specified',
-      subject: subject || `Booking for ${tourName}`,
+      subject: subject || `Booking for ${tourName || 'Unknown Tour'}`,
       message: message || 'No additional message provided'
     };
 
     // Check for missing required fields
     const missingFields = Object.keys(requiredFields).filter(
-      key => !requiredFields[key] || requiredFields[key].toString().trim() === ''
+      key => requiredFields[key] === undefined || requiredFields[key] === null || requiredFields[key].toString().trim() === ''
     );
 
     if (missingFields.length > 0) {
+      console.log('Missing fields detected:', missingFields);
       throw new Error(`Please fill in all required fields: ${missingFields.join(', ')}`);
     }
 

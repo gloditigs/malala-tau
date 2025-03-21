@@ -1081,159 +1081,157 @@
                         <h4 class="booking-form-title">Booking Form</h4>
                         <div id="widget-babe-booking-form">
                            <div id="booking_form_block">
-                            <form id="booking_form" name="booking_form" method="POST" action="/api/bookings" data-post-id="<%= tour._id %>" class="booking_form_type_recurrent_custom">
-                                <!-- Hidden Fields -->
-                                <input type="hidden" name="tourName" value="<%= tour.name %>">
-                                <input type="hidden" name="tourPrice" value="<%= tour.price %>">
-                                <input type="hidden" name="booking_obj_id" value="<%= tour._id %>">
-                                <input type="hidden" name="action" value="to_checkout">
-                                <!-- Input Group -->
-                                <div class="input_group">
-                                  <!-- Step 1: Date -->
-                                  <div class="booking-form-block booking-date-block">
-                                    <label class="booking_form_input_label">
-                                      <span class="booking_form_step_num">1</span>From:
-                                    </label>
-                                    <div class="booking-date">
-                                      <i class="far fa-calendar-alt"></i>
-                                      <input 
-                                        type="text" 
-                                        class="booking_date" 
-                                        id="booking_date_from" 
-                                        name="booking_date_from" 
-                                        value="" 
-                                        placeholder="Select date" 
-                                        data-post-id="<%= tour._id %>" 
-                                        autocomplete="off" 
-                                        required
-                                      >
-                                    </div>
-                                  </div>
-                                  <!-- Step 2: Guests -->
-                                  <div class="booking-form-block booking-guests-block">
-                                    <label class="booking_form_input_label">
-                                      <span class="booking_form_step_num">2</span>Tickets:
-                                    </label>
-                                    <div id="booking-guests-result">
-                                      <div class="guest-input">
-                                        <label>No. of Adults: * 
-                                          <input type="number" name="adults" min="1" required>
-                                        </label>
-                                      </div>
-                                      <div class="guest-input">
-                                        <label>No. of Children: 
-                                          <input type="number" name="children" min="0">
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- Step 3: Personal Details -->
-                                  <div class="booking-form-block">
-                                    <label class="booking_form_input_label">
-                                      <span class="booking_form_step_num">3</span>Your Details:
-                                    </label>
-                                    <div class="personal-details">
-                                      <label>Your Name: * <input type="text" name="name" required></label>
-                                      <label>Your Email: * <input type="email" name="email" required></label>
-                                      <label>Contact Number: * <input type="tel" name="contact" required></label>
-                                      <label>
-                                        Country: * 
-                                        <select name="country" required>
-                                          <option value="">Choose a country</option>
-                                          <option value="South Africa">South Africa</option>
-                                          <option value="United States">United States</option>
-                                          <option value="United Kingdom">United Kingdom</option>
-                                        </select>
-                                      </label>
-                                    </div>
-                                  </div>
-                                  <!-- Step 4: Enquiry -->
-                                  <div class="booking-form-block">
-                                    <label class="booking_form_input_label">
-                                      <span class="booking_form_step_num">4</span>Enquiry:
-                                    </label>
-                                    <div class="enquiry-details">
-                                      <label>Subject: * <input type="text" name="subject" required></label>
-                                      <label>Your Message: * <textarea name="message" required></textarea></label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- Total Group -->
-                                <div id="total_group">
-                                  <label class="booking_form_input_label">Total:</label>
-                                  <div id="booking_form_total">
-                                    <%= tour.price %> ZAR
-                                  </div>
-                                </div>
-                                <!-- Error Group -->
-                                
-                                <!-- Submit Button -->
-                                <div class="submit_group">
-                                  <button type="submit" class="btn btn-primary">Book Now</button>
-                                </div>
-                              </form>
-                              
-                              <!-- Updated Script -->
-                              <script>
-                                (function() {
-                                  // Ensure DOM is fully loaded
-                                  console.log('Script loaded, waiting for DOM...');
-                                  document.addEventListener('DOMContentLoaded', () => {
-                                    console.log('DOM fully loaded');
-                                    const form = document.getElementById('booking_form');
-                                    
-                                    if (!form) {
-                                      console.error('Form not found!');
-                                      return;
-                                    }
-                                    console.log('Form found:', form);
-                              
-                                    form.addEventListener('submit', async (e) => {
-                                      console.log('Form submit event triggered');
-                                      e.preventDefault(); // Prevent default submission
-                              
-                                      const formData = new FormData(form);
-                              
-                                      // Log form data
-                                      console.log('Form Data:');
-                                      for (const [key, value] of formData.entries()) {
-                                        console.log(`${key}: ${value}`);
-                                      }
-                              
-                                      try {
-                                        console.log('Submitting form to /api/bookings...');
-                                        const response = await fetch('/api/bookings', {
-                                          method: 'POST',
-                                          body: formData,
-                                        });
-                              
-                                        console.log('Response status:', response.status);
-                                        if (!response.ok) {
-                                          const errorText = await response.text();
-                                          throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
-                                        }
-                              
-                                        const data = await response.json();
-                                        console.log('Response data:', data);
-                              
-                                        if (data.redirect) {
-                                          console.log('Redirecting to:', data.redirect);
-                                          window.location.href = data.redirect; // Perform redirect
-                                        } else {
-                                          throw new Error('No redirect URL provided in response');
-                                        }
-                                      } catch (error) {
-                                        console.error('Error during form submission:', error);
-                                        const errorGroup = document.getElementById('error_group');
-                                        if (errorGroup) {
-                                          errorGroup.style.display = 'block';
-                                          errorGroup.querySelector('label').textContent = error.message;
-                                        }
-                                      }
-                                    });
-                                  });
-                                })();
-                              </script>
+                              <form id="booking_form" name="booking_form" method="POST" action="/api/bookings" data-post-id="<%= tour._id %>" class="booking_form_type_recurrent_custom">
+                                 <!-- Hidden Fields -->
+                                 <input type="hidden" name="tourName" value="<%= tour.name %>">
+                                 <input type="hidden" name="tourPrice" value="<%= tour.price %>">
+                                 <input type="hidden" name="booking_obj_id" value="<%= tour._id %>">
+                                 <input type="hidden" name="action" value="to_checkout">
+                               
+                                 <!-- Input Group -->
+                                 <div class="input_group">
+                                   <!-- Step 1: Date -->
+                                   <div class="booking-form-block booking-date-block">
+                                     <label class="booking_form_input_label">
+                                       <span class="booking_form_step_num">1</span>From:
+                                     </label>
+                                     <div class="booking-date">
+                                       <i class="far fa-calendar-alt"></i>
+                                       <input 
+                                         type="text" 
+                                         class="booking_date" 
+                                         id="booking_date_from" 
+                                         name="booking_date_from" 
+                                         placeholder="Select date" 
+                                         data-post-id="<%= tour._id %>" 
+                                         autocomplete="off" 
+                                         required
+                                       >
+                                     </div>
+                                   </div>
+                               
+                                   <!-- Step 2: Guests -->
+                                   <div class="booking-form-block booking-guests-block">
+                                     <label class="booking_form_input_label">
+                                       <span class="booking_form_step_num">2</span>Tickets:
+                                     </label>
+                                     <div id="booking-guests-result">
+                                       <div class="guest-input">
+                                         <label>No. of Adults: * 
+                                           <input type="number" name="adults" min="1" required>
+                                         </label>
+                                       </div>
+                                       <div class="guest-input">
+                                         <label>No. of Children: 
+                                           <input type="number" name="children" min="0">
+                                         </label>
+                                       </div>
+                                     </div>
+                                   </div>
+                               
+                                   <!-- Step 3: Personal Details -->
+                                   <div class="booking-form-block">
+                                     <label class="booking_form_input_label">
+                                       <span class="booking_form_step_num">3</span>Your Details:
+                                     </label>
+                                     <div class="personal-details">
+                                       <label>Your Name: * <input type="text" name="name" required></label>
+                                       <label>Your Email: * <input type="email" name="email" required></label>
+                                       <label>Contact Number: * <input type="tel" name="contact" required></label>
+                                       <label>
+                                         Country: 
+                                         <select name="country">
+                                           <option value="">Choose a country (optional)</option>
+                                           <option value="South Africa">South Africa</option>
+                                           <option value="United States">United States</option>
+                                           <option value="United Kingdom">United Kingdom</option>
+                                         </select>
+                                       </label>
+                                     </div>
+                                   </div>
+                               
+                                   <!-- Step 4: Enquiry -->
+                                   <div class="booking-form-block">
+                                     <label class="booking_form_input_label">
+                                       <span class="booking_form_step_num">4</span>Enquiry:
+                                     </label>
+                                     <div class="enquiry-details">
+                                       <label>Subject: <input type="text" name="subject"></label>
+                                       <label>Your Message: <textarea name="message"></textarea></label>
+                                     </div>
+                                   </div>
+                                 </div>
+                               
+                                 <!-- Total Group -->
+                                 <div id="total_group">
+                                   <label class="booking_form_input_label">Total:</label>
+                                   <div id="booking_form_total">
+                                     <%= tour.price %> ZAR
+                                   </div>
+                                 </div>
+                               
+                                 <!-- Submit Button -->
+                                 <div class="submit_group">
+                                   <button type="submit" class="btn btn-primary">Book Now</button>
+                                 </div>
+                               </form>
+                               
+                               <!-- Updated Script -->
+                               <script>
+                                 (function() {
+                                   console.log('Script loaded, waiting for DOM...');
+                                   document.addEventListener('DOMContentLoaded', () => {
+                                     console.log('DOM fully loaded');
+                                     const form = document.getElementById('booking_form');
+                                     
+                                     if (!form) {
+                                       console.error('Form not found!');
+                                       return;
+                                     }
+                                     console.log('Form found:', form);
+                               
+                                     form.addEventListener('submit', async (e) => {
+                                       console.log('Form submit event triggered');
+                                       e.preventDefault();
+                               
+                                       const formData = new FormData(form);
+                               
+                                       // Log form data
+                                       console.log('Form Data:');
+                                       for (const [key, value] of formData.entries()) {
+                                         console.log(`${key}: ${value}`);
+                                       }
+                               
+                                       try {
+                                         console.log('Submitting form to /api/bookings...');
+                                         const response = await fetch('/api/bookings', {
+                                           method: 'POST',
+                                           body: formData
+                                         });
+                               
+                                         console.log('Response status:', response.status);
+                                         if (!response.ok) {
+                                           const errorText = await response.text();
+                                           throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
+                                         }
+                               
+                                         const data = await response.json();
+                                         console.log('Response data:', data);
+                               
+                                         if (data.redirect) {
+                                           console.log('Redirecting to:', data.redirect);
+                                           window.location.href = data.redirect;
+                                         } else {
+                                           throw new Error('No redirect URL provided in response');
+                                         }
+                                       } catch (error) {
+                                         console.error('Error during form submission:', error);
+                                         alert(error.message);
+                                       }
+                                     });
+                                   });
+                                 })();
+                               </script>
                               <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                               <script>
                                  flatpickr("#booking_date_from", {
