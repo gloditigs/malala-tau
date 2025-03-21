@@ -22,6 +22,11 @@ console.log('Environment Variables Loaded:', {
   SESSION_SECRET: process.env.SESSION_SECRET ? '[REDACTED]' : 'undefined'
 });
 
+// Validate critical environment variables
+if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+  throw new Error('Missing Cloudinary environment variables. Check Vercel settings or .env file.');
+}
+
 
 const app = express();
 
