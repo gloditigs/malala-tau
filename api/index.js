@@ -69,6 +69,18 @@ app.get('/', async (req, res) => {
   }
 });
 
+// All Tours route
+app.get('/all-tours', async (req, res) => {
+  try {
+    const Tour = require('../models/Tour');
+    const tours = await Tour.find(); // Fetch all tours
+    res.render('all-tours', { tours }); // Render all-tours.ejs with tours data
+  } catch (error) {
+    console.error('Error in all-tours route:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 // Tour details route
 app.get('/tour/:id', async (req, res) => {
   try {
