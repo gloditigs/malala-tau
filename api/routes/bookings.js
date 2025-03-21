@@ -4,11 +4,14 @@ const querystring = require('querystring');
 
 router.post('/', async (req, res) => {
   try {
+    // Log the incoming request body for debugging
+    console.log('POST /api/bookings - Request Body:', req.body);
+
     const {
       tourName,
       tourPrice,
       booking_obj_id,
-      action,
+      action, // Not used in logic, keeping for compatibility
       booking_date_from,
       adults,
       children,
@@ -20,33 +23,54 @@ router.post('/', async (req, res) => {
       message
     } = req.body;
 
-    console.log('Booking request body:', req.body);
+    // Define required fields
+    const requiredFields = {
+      tourName,
+      tourPrice,
+      booking_obj_id,
+      booking_date_from,
+      adults,
+      name,
+      email,
+      contact
+    };
 
-    const missingFields = [];
-    if (!tourName) missingFields.push('tourName');
-    if (!tourPrice) missingFields.push('tourPrice');
-    if (!booking_obj_id) missingFields.push('booking_obj_id');
-    if (!booking_date_from) missingFields.push('booking_date_from');
-    if (!adults) missingFields.push('adults');
-    if (!name) missingFields.push('name');
-    if (!email) missingFields.push('email');
-    if (!contact) missingFields.push('contact');
-    if (!country) missingFields.push('country');
-    if (!subject) missingFields.push('subject');
-    if (!message) missingFields.push('message');
+    // Define optional fields with defaults
+    const optionalFields = {
+      children: children || '0', // Default to 0 if not provided
+      country: country || 'Not specified',
+      subject: subject || `Booking for ${tourName}`,
+      message: message || 'No additional message provided'
+    };
+
+    // Check for missing required fields
+    const missingFields = Object.keys(requiredFields).filter(
+      key => !requiredFields[key] || requiredFields[key].toString().trim() === ''
+    );
 
     if (missingFields.length > 0) {
       throw new Error(`Please fill in all required fields: ${missingFields.join(', ')}`);
     }
 
+    // Parse and validate numeric values
     const totalAdults = parseInt(adults, 10);
-    const totalChildren = parseInt(children || 0, 10);
+    const totalChildren = parseInt(optionalFields.children, 10);
     const pricePerAdult = parseFloat(tourPrice);
-    if (isNaN(pricePerAdult) || pricePerAdult <= 0 || isNaN(totalAdults) || totalAdults <= 0) {
-      throw new Error('Invalid tour price or number of adults');
+
+    if (isNaN(pricePerAdult) || pricePerAdult <= 0) {
+      throw new Error('Invalid tour price');
     }
+    if (isNaN(totalAdults) || totalAdults <= 0) {
+      throw new Error('Number of adults must be greater than 0');
+    }
+    if (isNaN(totalChildren) || totalChildren < 0) {
+      throw new Error('Number of children cannot be negative');
+    }
+
+    // Calculate total (children get 50% discount)
     const total = (totalAdults * pricePerAdult + totalChildren * (pricePerAdult * 0.5)).toFixed(2);
 
+    // Prepare form data for Basin
     const formData = {
       tourName,
       tourPrice,
@@ -58,11 +82,12 @@ router.post('/', async (req, res) => {
       name,
       email,
       contact,
-      country,
-      subject,
-      message
+      country: optionalFields.country,
+      subject: optionalFields.subject,
+      message: optionalFields.message
     };
 
+    // Submit to Basin
     const basinEndpoint = 'https://usebasin.com/f/35927a0ab3b1';
     const basinResponse = await fetch(basinEndpoint, {
       method: 'POST',
@@ -81,10 +106,10 @@ router.post('/', async (req, res) => {
     const basinResult = await basinResponse.json();
     console.log('Basin submission successful:', basinResult);
 
-    // Generate Payfast payment link without name_first and email_address
+    // Generate Payfast payment link
     const payfastData = {
-      merchant_id: '24154510',
-      merchant_key: 'hulrvjrdyo3rm',
+      merchant_id: '10197837',
+      merchant_key: 't6yjgrosp54oy',
       return_url: 'https://malala-tau.vercel.app/success',
       cancel_url: 'https://malala-tau.vercel.app/cancel',
       notify_url: 'https://malala-tau.vercel.app/api/bookings/notify',
