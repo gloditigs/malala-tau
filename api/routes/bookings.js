@@ -4,14 +4,15 @@ const querystring = require('querystring');
 
 router.post('/', async (req, res) => {
   try {
-    // Log the incoming request body for debugging
+    console.log('POST /api/bookings - Request Received');
     console.log('POST /api/bookings - Request Body:', req.body);
+    console.log('POST /api/bookings - Headers:', req.headers);
 
     const {
       tourName,
       tourPrice,
       booking_obj_id,
-      action, // Not used in logic, keeping for compatibility
+      action,
       booking_date_from,
       adults,
       children,
@@ -23,7 +24,6 @@ router.post('/', async (req, res) => {
       message
     } = req.body;
 
-    // Define required fields
     const requiredFields = {
       tourName,
       tourPrice,
@@ -35,7 +35,6 @@ router.post('/', async (req, res) => {
       contact
     };
 
-    // Define optional fields with defaults
     const optionalFields = {
       children: children || '0',
       country: country || 'Not specified',
@@ -43,7 +42,6 @@ router.post('/', async (req, res) => {
       message: message || 'No additional message provided'
     };
 
-    // Check for missing required fields
     const missingFields = Object.keys(requiredFields).filter(
       key => requiredFields[key] === undefined || requiredFields[key] === null || requiredFields[key].toString().trim() === ''
     );
@@ -53,7 +51,6 @@ router.post('/', async (req, res) => {
       throw new Error(`Please fill in all required fields: ${missingFields.join(', ')}`);
     }
 
-    // Parse and validate numeric values
     const totalAdults = parseInt(adults, 10);
     const totalChildren = parseInt(optionalFields.children, 10);
     const pricePerAdult = parseFloat(tourPrice);
@@ -68,10 +65,8 @@ router.post('/', async (req, res) => {
       throw new Error('Number of children cannot be negative');
     }
 
-    // Calculate total (children get 50% discount)
     const total = (totalAdults * pricePerAdult + totalChildren * (pricePerAdult * 0.5)).toFixed(2);
 
-    // Prepare form data for Basin
     const formData = {
       tourName,
       tourPrice,
@@ -88,7 +83,6 @@ router.post('/', async (req, res) => {
       message: optionalFields.message
     };
 
-    // Submit to Basin
     const basinEndpoint = 'https://usebasin.com/f/35927a0ab3b1';
     const basinResponse = await fetch(basinEndpoint, {
       method: 'POST',
@@ -107,10 +101,9 @@ router.post('/', async (req, res) => {
     const basinResult = await basinResponse.json();
     console.log('Basin submission successful:', basinResult);
 
-    // Generate Payfast payment link
     const payfastData = {
-      merchant_id: '10197837',
-      merchant_key: 't6yjgrosp54oy',
+      merchant_id: '24154510',
+      merchant_key: 'hulrvjrdyo3rm',
       return_url: 'https://malala-tau.vercel.app/success',
       cancel_url: 'https://malala-tau.vercel.app/cancel',
       notify_url: 'https://malala-tau.vercel.app/api/bookings/notify',

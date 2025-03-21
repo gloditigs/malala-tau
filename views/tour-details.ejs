@@ -1177,61 +1177,67 @@
                                </form>
                                
                                <!-- Updated Script -->
-                               <script>
-                                 (function() {
-                                   console.log('Script loaded, waiting for DOM...');
-                                   document.addEventListener('DOMContentLoaded', () => {
-                                     console.log('DOM fully loaded');
-                                     const form = document.getElementById('booking_form');
-                                     
-                                     if (!form) {
-                                       console.error('Form not found!');
-                                       return;
-                                     }
-                                     console.log('Form found:', form);
-                               
-                                     form.addEventListener('submit', async (e) => {
-                                       console.log('Form submit event triggered');
-                                       e.preventDefault();
-                               
-                                       const formData = new FormData(form);
-                               
-                                       // Log form data
-                                       console.log('Form Data:');
-                                       for (const [key, value] of formData.entries()) {
-                                         console.log(`${key}: ${value}`);
-                                       }
-                               
-                                       try {
-                                         console.log('Submitting form to /api/bookings...');
-                                         const response = await fetch('/api/bookings', {
-                                           method: 'POST',
-                                           body: formData
-                                         });
-                               
-                                         console.log('Response status:', response.status);
-                                         if (!response.ok) {
-                                           const errorText = await response.text();
-                                           throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
-                                         }
-                               
-                                         const data = await response.json();
-                                         console.log('Response data:', data);
-                               
-                                         if (data.redirect) {
-                                           console.log('Redirecting to:', data.redirect);
-                                           window.location.href = data.redirect;
-                                         } else {
-                                           throw new Error('No redirect URL provided in response');
-                                         }
-                                       } catch (error) {
-                                         console.error('Error during form submission:', error);
-                                         alert(error.message);
-                                       }
-                                     });
-                                   });
-                                 })();
-                               </script>
+                               <!-- Inside your form -->
+<script>
+   (function() {
+     console.log('Script loaded, waiting for DOM...');
+     document.addEventListener('DOMContentLoaded', () => {
+       console.log('DOM fully loaded');
+       const form = document.getElementById('booking_form');
+       
+       if (!form) {
+         console.error('Form not found!');
+         return;
+       }
+       console.log('Form found:', form);
+ 
+       form.addEventListener('submit', async (e) => {
+         console.log('Form submit event triggered');
+         e.preventDefault();
+ 
+         const formData = new FormData(form);
+ 
+         // Log form data
+         console.log('Form Data:');
+         for (const [key, value] of formData.entries()) {
+           console.log(`${key}: ${value}`);
+         }
+ 
+         try {
+           console.log('Submitting form to /api/bookings...');
+           const response = await fetch('/api/bookings', {
+             method: 'POST',
+             body: formData,
+             headers: {
+               'Accept': 'application/json', // Explicitly accept JSON response
+               // Let browser set Content-Type automatically for FormData
+             },
+             credentials: 'include' // Include cookies if needed (e.g., for sessions)
+           });
+ 
+           console.log('Response status:', response.status);
+           if (!response.ok) {
+             const errorText = await response.text();
+             throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
+           }
+ 
+           const data = await response.json();
+           console.log('Response data:', data);
+ 
+           if (data.redirect) {
+             console.log('Redirecting to:', data.redirect);
+             window.location.href = data.redirect;
+           } else {
+             throw new Error('No redirect URL provided in response');
+           }
+         } catch (error) {
+           console.error('Error during form submission:', error);
+           alert(error.message);
+         }
+       });
+     });
+   })();
+ </script>
                               <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                               <script>
                                  flatpickr("#booking_date_from", {
