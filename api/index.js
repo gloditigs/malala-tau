@@ -17,7 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(upload.any()); // Parse all fields from multipart/form-data
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

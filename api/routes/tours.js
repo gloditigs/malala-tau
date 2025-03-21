@@ -13,7 +13,10 @@ cloudinary.config({
 
 // Multer setup for memory storage
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit per file
+});
 
 // Create Tour
 router.post('/', upload.fields([
@@ -23,29 +26,35 @@ router.post('/', upload.fields([
   try {
     const { name, location, price, durationHours, durationDays, description } = req.body;
 
-    console.log('POST Request Body:', req.body);
-    console.log('POST Request Files:', req.files);
+    // Log incoming request for debugging
+    console.log('POST /api/tours - Request Body:', req.body);
+    console.log('POST /api/tours - Files:', req.files);
 
+    // Validate required fields
+    if (!name || !location || !price) {
+      return res.status(400).json({ error: 'Name, location, and price are required' });
+    }
     if (!req.files || !req.files.coverImage || !req.files.coverImage[0]) {
-      throw new Error('Cover image is required for new tours');
+      return res.status(400).json({ error: 'Cover image is required for new tours' });
     }
 
+    // Upload cover image to Cloudinary
     const coverImageResult = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         { folder: 'tours', resource_type: 'image' },
         (error, result) => {
           if (error) {
-            console.error('Cloudinary upload error:', error);
+            console.error('Cloudinary upload error (coverImage):', error);
             return reject(error);
           }
           resolve(result);
         }
       ).end(req.files.coverImage[0].buffer);
     });
-
     const coverImage = coverImageResult.secure_url;
     console.log('Uploaded coverImage URL:', coverImage);
 
+    // Upload additional images to Cloudinary (if provided)
     const additionalImages = [];
     if (req.files.additionalImages) {
       for (const file of req.files.additionalImages) {
@@ -53,7 +62,10 @@ router.post('/', upload.fields([
           cloudinary.uploader.upload_stream(
             { folder: 'tours', resource_type: 'image' },
             (error, result) => {
-              if (error) return reject(error);
+              if (error) {
+                console.error('Cloudinary upload error (additionalImages):', error);
+                return reject(error);
+              }
               resolve(result);
             }
           ).end(file.buffer);
@@ -63,22 +75,23 @@ router.post('/', upload.fields([
       console.log('Uploaded additionalImages URLs:', additionalImages);
     }
 
+    // Create and save the tour
     const tour = new Tour({
       name,
       coverImage,
       additionalImages,
       location,
       price,
-      durationHours,
-      durationDays,
-      description
+      durationHours: durationHours || 0,
+      durationDays: durationDays || 0,
+      description: description || ''
     });
     const savedTour = await tour.save();
     console.log('Saved Tour:', savedTour);
 
     res.redirect('/cms');
   } catch (err) {
-    console.error('Error in POST /tours:', err);
+    console.error('Error in POST /api/tours:', err);
     res.status(400).json({ error: err.message });
   }
 });
@@ -87,10 +100,10 @@ router.post('/', upload.fields([
 router.get('/', async (req, res) => {
   try {
     const tours = await Tour.find();
-    console.log('Fetched Tours:', tours);
+    console.log('GET /api/tours - Fetched Tours:', tours);
     res.json(tours);
   } catch (err) {
-    console.error(err);
+    console.error('Error in GET /api/tours:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -98,7 +111,7 @@ router.get('/', async (req, res) => {
 // Get Tour Counts by Location
 router.get('/counts-by-location', async (req, res) => {
   try {
-    const tourCounts = await Tour.aggregate([ // Fixed syntax here
+    const tourCounts = await Tour.aggregate([
       { $group: { _id: '$location', count: { $sum: 1 } } },
       { $project: { location: '$_id', count: 1, _id: 0 } }
     ]);
@@ -116,10 +129,10 @@ router.get('/counts-by-location', async (req, res) => {
       if (!tourCountMap[province]) tourCountMap[province] = 0;
     });
 
-    console.log('Tour counts by location:', tourCountMap);
+    console.log('GET /api/tours/counts-by-location - Tour counts:', tourCountMap);
     res.json(tourCountMap);
   } catch (err) {
-    console.error('Error fetching tour counts by location:', err);
+    console.error('Error in GET /api/tours/counts-by-location:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -129,9 +142,10 @@ router.get('/:id', async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id);
     if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    console.log('GET /api/tours/:id - Fetched Tour:', tour);
     res.json(tour);
   } catch (err) {
-    console.error(err);
+    console.error('Error in GET /api/tours/:id:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -145,9 +159,10 @@ router.put('/:id', upload.fields([
     const { name, location, price, durationHours, durationDays, description } = req.body;
     const updateData = {};
 
-    console.log('PUT Request Body:', req.body);
-    console.log('PUT Request Files:', req.files);
+    console.log('PUT /api/tours/:id - Request Body:', req.body);
+    console.log('PUT /api/tours/:id - Files:', req.files);
 
+    // Populate updateData with provided fields
     if (name) updateData.name = name;
     if (location) updateData.location = location;
     if (price) updateData.price = price;
@@ -155,12 +170,16 @@ router.put('/:id', upload.fields([
     if (durationDays) updateData.durationDays = durationDays;
     if (description) updateData.description = description;
 
+    // Handle cover image update
     if (req.files && req.files.coverImage && req.files.coverImage[0]) {
       const coverImageResult = await new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream(
           { folder: 'tours', resource_type: 'image' },
           (error, result) => {
-            if (error) return reject(error);
+            if (error) {
+              console.error('Cloudinary upload error (coverImage):', error);
+              return reject(error);
+            }
             resolve(result);
           }
         ).end(req.files.coverImage[0].buffer);
@@ -169,6 +188,7 @@ router.put('/:id', upload.fields([
       console.log('Updated coverImage URL:', updateData.coverImage);
     }
 
+    // Handle additional images update
     if (req.files && req.files.additionalImages) {
       const additionalImages = [];
       for (const file of req.files.additionalImages) {
@@ -176,7 +196,10 @@ router.put('/:id', upload.fields([
           cloudinary.uploader.upload_stream(
             { folder: 'tours', resource_type: 'image' },
             (error, result) => {
-              if (error) return reject(error);
+              if (error) {
+                console.error('Cloudinary upload error (additionalImages):', error);
+                return reject(error);
+              }
               resolve(result);
             }
           ).end(file.buffer);
@@ -187,16 +210,18 @@ router.put('/:id', upload.fields([
       console.log('Updated additionalImages URLs:', additionalImages);
     }
 
+    // Update the tour
     const tour = await Tour.findByIdAndUpdate(
       req.params.id,
       { $set: updateData },
-      { new: true, runValidators: false }
+      { new: true, runValidators: true }
     );
 
     if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    console.log('PUT /api/tours/:id - Updated Tour:', tour);
     res.redirect('/cms');
   } catch (err) {
-    console.error('Error in PUT /tours:', err);
+    console.error('Error in PUT /api/tours/:id:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -206,9 +231,10 @@ router.delete('/:id', async (req, res) => {
   try {
     const tour = await Tour.findByIdAndDelete(req.params.id);
     if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    console.log('DELETE /api/tours/:id - Deleted Tour:', tour);
     res.redirect('/cms');
   } catch (err) {
-    console.error(err);
+    console.error('Error in DELETE /api/tours/:id:', err);
     res.status(500).json({ error: err.message });
   }
 });
