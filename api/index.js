@@ -9,6 +9,20 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 const multer = require('multer');
 
+
+// Log environment variables to verify loading
+console.log('Environment Variables Loaded:', {
+  MONGODB_URI: process.env.MONGODB_URI ? '[SET]' : 'undefined',
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET ? '[REDACTED]' : 'undefined',
+  BASIN_ENDPOINT: process.env.BASIN_ENDPOINT,
+  PAYFAST_MERCHANT_ID: process.env.PAYFAST_MERCHANT_ID,
+  PAYFAST_MERCHANT_KEY: process.env.PAYFAST_MERCHANT_KEY ? '[REDACTED]' : 'undefined',
+  SESSION_SECRET: process.env.SESSION_SECRET ? '[REDACTED]' : 'undefined'
+});
+
+
 const app = express();
 
 // Multer setup for parsing multipart/form-data

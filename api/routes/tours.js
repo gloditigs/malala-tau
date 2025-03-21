@@ -4,11 +4,26 @@ const Tour = require('../../models/Tour');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 
+// Verify environment variables before configuring Cloudinary
+if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+  console.error('Cloudinary environment variables missing:', {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET ? '[REDACTED]' : 'undefined'
+  });
+  throw new Error('Cloudinary configuration incomplete. Check environment variables.');
+}
+
 // Cloudinary config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
+});
+console.log('Cloudinary Configured:', {
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET ? '[REDACTED]' : 'undefined'
 });
 
 // Multer setup for memory storage
