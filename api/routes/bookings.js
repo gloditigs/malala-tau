@@ -5,7 +5,7 @@ const querystring = require('querystring');
 router.post('/', async (req, res) => {
   try {
     console.log('POST /api/bookings - Request Received');
-    console.log('POST /api/bookings - Request Body:', req.body);
+    console.log('POST /api/bookings - Raw Body:', req.body);
     console.log('POST /api/bookings - Headers:', req.headers);
 
     const {
