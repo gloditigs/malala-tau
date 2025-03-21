@@ -6,7 +6,6 @@ router.post('/', async (req, res) => {
   try {
     console.log('POST /api/bookings - Request Received');
     console.log('POST /api/bookings - Raw Body:', req.body);
-    console.log('POST /api/bookings - Headers:', req.headers);
 
     const {
       tourName,
@@ -23,6 +22,21 @@ router.post('/', async (req, res) => {
       subject,
       message
     } = req.body;
+
+    console.log('POST /api/bookings - Extracted Fields:', {
+      tourName,
+      tourPrice,
+      booking_obj_id,
+      booking_date_from,
+      adults,
+      name,
+      email,
+      contact,
+      children,
+      country,
+      subject,
+      message
+    });
 
     const requiredFields = {
       tourName,
