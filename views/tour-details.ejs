@@ -9,58 +9,78 @@
       <title><%= tour.name %></title>
       <meta name='robots' content='max-image-preview:large' />
       <style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-      <link rel="alternate" type="application/rss+xml" title="Travila &raquo; 10 Days Bay Cruise by Boat in Snake island Comments Feed" href="feed/index.html" />
+  
+      <!-- Hide body until styles load -->
+      <style>
+        body {
+          visibility: hidden;
+        }
+      </style>
+  
+      <!-- Script to track stylesheet loading -->
+      <script>
+        var loadedStylesheets = 0;
+        var totalStylesheets = 0;
+        function stylesheetLoaded() {
+          loadedStylesheets++;
+          if (loadedStylesheets === totalStylesheets) {
+            document.body.style.visibility = 'visible';
+          }
+        }
+      </script>
+  
+      <link rel="alternate" type="application/rss+xml" title="Travila » 10 Days Bay Cruise by Boat in Snake island Comments Feed" href="feed/index.html" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
       <style id='wp-emoji-styles-inline-css' type='text/css'>
-         img.wp-smiley, img.emoji {
-         display: inline !important;
-         border: none !important;
-         box-shadow: none !important;
-         height: 1em !important;
-         width: 1em !important;
-         margin: 0 0.07em !important;
-         vertical-align: -0.1em !important;
-         background: none !important;
-         padding: 0 !important;
-         }
+        img.wp-smiley, img.emoji {
+          display: inline !important;
+          border: none !important;
+          box-shadow: none !important;
+          height: 1em !important;
+          width: 1em !important;
+          margin: 0 0.07em !important;
+          vertical-align: -0.1em !important;
+          background: none !important;
+          padding: 0 !important;
+        }
       </style>
-      <link rel='stylesheet' id='wp-block-library-css' href='/wp-includes/css/dist/block-library/style.mind1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-ion-rangeslider-css-css' href='/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/ion.rangeSlider.min4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-daterangepicker-style-css' href='/wp-content/plugins/ba-book-everything/css/daterangepicker4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-select2-style-css' href='/wp-content/plugins/ba-book-everything/css/select2.min4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-modal-style-css' href='/wp-content/plugins/ba-book-everything/css/babe-modal4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-unitegallery-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/css/unite-gallery4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-unitegallery-default-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/themes/default/ug-theme-default4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-unitegallery-mediaelementplayer-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/css/mediaelementplayer.min4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='jquery-ui-style-css' href='/wp-content/plugins/ba-book-everything/css/jquery-ui.min4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-fontawesome-css' href='/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/all.min4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='babe-style-css' href='/wp-content/plugins/ba-book-everything/css/babe-style4326.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='contact-form-7-css' href='/wp-content/plugins/contact-form-7/includes/css/stylesdc24.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-icon-css' href='/wp-content/plugins/travila-core/assets/css/feather5152.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-custom-css' href='/wp-content/themes/travila/assets/css/travila-customd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
+      <link rel='stylesheet' id='wp-block-library-css' href='/wp-includes/css/dist/block-library/style.mind1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-ion-rangeslider-css-css' href='/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/ion.rangeSlider.min4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-daterangepicker-style-css' href='/wp-content/plugins/ba-book-everything/css/daterangepicker4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-select2-style-css' href='/wp-content/plugins/ba-book-everything/css/select2.min4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-modal-style-css' href='/wp-content/plugins/ba-book-everything/css/babe-modal4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-unitegallery-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/css/unite-gallery4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-unitegallery-default-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/themes/default/ug-theme-default4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-unitegallery-mediaelementplayer-styles-css' href='/wp-content/plugins/ba-book-everything/js/unitegallery/css/mediaelementplayer.min4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='jquery-ui-style-css' href='/wp-content/plugins/ba-book-everything/css/jquery-ui.min4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-fontawesome-css' href='/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/all.min4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='babe-style-css' href='/wp-content/plugins/ba-book-everything/css/babe-style4326.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='contact-form-7-css' href='/wp-content/plugins/contact-form-7/includes/css/stylesdc24.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-icon-css' href='/wp-content/plugins/travila-core/assets/css/feather5152.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-custom-css' href='/wp-content/themes/travila/assets/css/travila-customd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
       <style id='travila-custom-inline-css' type='text/css'>
         html:root { --bs-warning: #F09814}html:root { --unit-primary-color: #F09814}
         html:root { --bs-brand-secondary: #FEFA17}
       </style>
-      <link rel='stylesheet' id='travila-fonts-css' href='/wp-content/themes/travila/assets/css/travila-fontsd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='bootstrap-css' href='/wp-content/themes/travila/assets/css/bootstrap.mind1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-normalize-css' href='/wp-content/themes/travila/assets/css/normalized1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='font-awesome-free-css' href='/wp-content/themes/travila/assets/css/fontawesome-all.mind1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='uicons-css' href='/wp-content/themes/travila/assets/css/uicons-regular-roundedd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='swiper-bundle-css' href='/wp-content/themes/travila/assets/css/swiper-bundle.mind1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='magnific-popup-css' href='/wp-content/themes/travila/assets/css/magnific-popupd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-animate-css' href='/wp-content/themes/travila/assets/css/animated1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='select2-css' href='/wp-content/themes/travila/assets/css/select2.mind1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='perfect-scrollbar-css' href='/wp-content/themes/travila/assets/css/perfect-scrollbard1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='carouselTicker-css' href='/wp-content/themes/travila/assets/css/carouselTickerd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='bootstrap-datepicker3-css' href='/wp-content/themes/travila/assets/css/bootstrap-datepicker3d1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='slick-css' href='/wp-content/themes/travila/assets/css/slickd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-core-css' href='/wp-content/themes/travila/assets/css/travila-cored1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-unit-css' href='/wp-content/themes/travila/assets/css/travila-unitd1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='travila-style-css' href='/wp-content/themes/travila/styled1c0.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='rtrs-app-css' href='/wp-content/plugins/review-schema/assets/css/app.minac31.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      <link rel='stylesheet' id='rtrs-sc-css' href='/wp-content/uploads/review-schema/sc37be.css' as="style" onload="this.rel='stylesheet'" type='text/css' media='all' />
-      
+      <link rel='stylesheet' id='travila-fonts-css' href='/wp-content/themes/travila/assets/css/travila-fontsd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='bootstrap-css' href='/wp-content/themes/travila/assets/css/bootstrap.mind1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-normalize-css' href='/wp-content/themes/travila/assets/css/normalized1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='font-awesome-free-css' href='/wp-content/themes/travila/assets/css/fontawesome-all.mind1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='uicons-css' href='/wp-content/themes/travila/assets/css/uicons-regular-roundedd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='swiper-bundle-css' href='/wp-content/themes/travila/assets/css/swiper-bundle.mind1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='magnific-popup-css' href='/wp-content/themes/travila/assets/css/magnific-popupd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-animate-css' href='/wp-content/themes/travila/assets/css/animated1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='select2-css' href='/wp-content/themes/travila/assets/css/select2.mind1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='perfect-scrollbar-css' href='/wp-content/themes/travila/assets/css/perfect-scrollbard1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='carouselTicker-css' href='/wp-content/themes/travila/assets/css/carouselTickerd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='bootstrap-datepicker3-css' href='/wp-content/themes/travila/assets/css/bootstrap-datepicker3d1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='slick-css' href='/wp-content/themes/travila/assets/css/slickd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-core-css' href='/wp-content/themes/travila/assets/css/travila-cored1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-unit-css' href='/wp-content/themes/travila/assets/css/travila-unitd1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='travila-style-css' href='/wp-content/themes/travila/styled1c0.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='rtrs-app-css' href='/wp-content/plugins/review-schema/assets/css/app.minac31.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+      <link rel='stylesheet' id='rtrs-sc-css' href='/wp-content/uploads/review-schema/sc37be.css' as="style" onload="this.rel='stylesheet'; stylesheetLoaded();" type='text/css' media='all' />
+  
       <!-- Noscript Fallback -->
       <noscript>
         <link rel='stylesheet' id='wp-block-library-css' href='/wp-includes/css/dist/block-library/style.mind1c0.css' type='text/css' media='all' />
@@ -96,6 +116,12 @@
         <link rel='stylesheet' id='rtrs-app-css' href='/wp-content/plugins/review-schema/assets/css/app.minac31.css' type='text/css' media='all' />
         <link rel='stylesheet' id='rtrs-sc-css' href='/wp-content/uploads/review-schema/sc37be.css' type='text/css' media='all' />
       </noscript>
+  
+      <!-- Set total number of stylesheets -->
+      <script>
+        totalStylesheets = document.querySelectorAll('link[as="style"]').length;
+      </script>
+  
       <script type="text/javascript" src="/wp-includes/js/jquery/jquery.minf43b.js" id="jquery-core-js"></script>
       <script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min5589.js" id="jquery-migrate-js"></script>
       <link rel="https://api.w.org/" href="../../wp-json/index.html" />
@@ -104,31 +130,31 @@
       <link rel="canonical" href="index.html" />
       <link rel='shortlink' href='../../index564c.html?p=2413' />
       <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed1644.json?url=https%3A%2F%2Ftravila.alithemes.com%2Fbook%2F10-days-bay-cruise-by-boat-in-snake-island%2F" />
-      <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed340d?url=https%3A%2F%2Ftravila.alithemes.com%2Fbook%2F10-days-bay-cruise-by-boat-in-snake-island%2F&amp;format=xml" />
+      <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed340d?url=https%3A%2F%2Ftravila.alithemes.com%2Fbook%2F10-days-bay-cruise-by-boat-in-snake-island%2F&format=xml" />
       <meta name="generator" content="Elementor 3.25.11; features: additional_custom_breakpoints, e_optimized_control_loading, e_element_cache; settings: css_print_method-external, google_font-enabled, font_display-swap">
       <link rel="icon" href="/wp-content/uploads/2024/09/cropped-travila-fav-32x32.png" sizes="32x32" />
       <link rel="icon" href="/wp-content/uploads/2024/09/cropped-travila-fav-192x192.png" sizes="192x192" />
       <link rel="apple-touch-icon" href="/wp-content/uploads/2024/09/cropped-travila-fav-180x180.png" />
       <meta name="msapplication-TileImage" content="/wp-content/uploads/2024/09/cropped-travila-fav-270x270.png" />
       <style type="text/css" id="wp-custom-css">
-         .box-popular-posts ul li .card-post .card-image img {
-         margin-bottom: 0;
-         }
-         .card-property.card-flight.card-hotel .card-facilities .item-facilities p {
-         padding: 0!important;
-         display: flex;
-         align-items: center;
-         gap: 10px;
-         }
-         .box-grid-hotels .card-price>p {
-         display: block!important;
-         }
-         .blog__details-content h4 {
-         margin-top: 1.1em;
-         }
+        .box-popular-posts ul li .card-post .card-image img {
+          margin-bottom: 0;
+        }
+        .card-property.card-flight.card-hotel .card-facilities .item-facities p {
+          padding: 0!important;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .box-grid-hotels .card-price>p {
+          display: block!important;
+        }
+        .blog__details-content h4 {
+          margin-top: 1.1em;
+        }
       </style>
       <style id="kirki-inline-styles"></style>
-   </head>
+  </head>
    <body class="to_book-template-default single single-to_book postid-2413 wp-embed-responsive no-sidebar background-body elementor-default elementor-kit-11">
      
      
