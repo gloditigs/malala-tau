@@ -4,8 +4,8 @@
     { "src": "api/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/wp-content/(.*)", "dest": "/public/wp-content/$1" },
-    { "src": "/wp-includes/(.*)", "dest": "/public/wp-includes/$1" },
+    { "src": "/wp-content/(.*)", "dest": "/public/wp-content/$1", "headers": { "Cache-Control": "public, max-age=31536000" } },
+    { "src": "/wp-includes/(.*)", "dest": "/public/wp-includes/$1", "headers": { "Cache-Control": "public, max-age=31536000" } },
     { "src": "/api/(.*)", "dest": "api/index.js" },
     { "src": "/(.*)", "dest": "api/index.js" }
   ]
