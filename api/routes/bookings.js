@@ -116,8 +116,8 @@ router.post('/', async (req, res) => {
     console.log('Basin submission successful:', basinResult);
 
     const payfastData = {
-      merchant_id: '24154510',
-      merchant_key: 'hulrvjrdyo3rm',
+      merchant_id: '10197837',
+      merchant_key: 't6yjgrosp54oy',
       return_url: 'https://malala-tau.vercel.app/success',
       cancel_url: 'https://malala-tau.vercel.app/cancel',
       notify_url: 'https://malala-tau.vercel.app/api/bookings/notify',
