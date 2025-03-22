@@ -942,91 +942,86 @@ of the World Every Day</h2>
 				</div>
 				</div>
 		<div class="elementor-element elementor-element-3287e98 e-con-full e-flex e-con e-child" data-id="3287e98" data-element_type="container">
-				<div class="elementor-element elementor-element-77ac98f elementor-widget elementor-widget-tr-booking-layout" data-id="77ac98f" data-element_type="widget" data-widget_type="tr-booking-layout.default">
-				<div class="elementor-widget-container">
-			                            <div class="row">
-                                            <div class="row">
-                                                <% tours.forEach(tour => { %>
-                                                  <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="card-journey-small background-card">
-                                                      <div class="card-image">
-                                                        <!-- Optional "Best Sale" label (customize condition as needed) -->
-                                                        <% if (tour.price < 100) { %>
-                                                          <a class="label" href="#" style="color: #3DC262;">Best Sale</a>
-                                                        <% } %>
-                                                        <% if (tour.coverImage) { %>
-                                                          <img 
-                                                            loading="lazy" 
-                                                            decoding="async" 
-                                                            width="640" 
-                                                            height="428" 
-                                                            src="<%= tour.coverImage %>" 
-                                                            class="attachment-large size-large" 
-                                                            alt="<%= tour.name %>" 
-                                                            onerror="this.onerror=null; this.src='/wp-content/uploads/placeholder.jpg';"
-                                                          />
-                                                        <% } else { %>
-                                                          <img 
-                                                            loading="lazy" 
-                                                            decoding="async" 
-                                                            width="640" 
-                                                            height="428" 
-                                                            src="/wp-content/uploads/placeholder.jpg" 
-                                                            class="attachment-large size-large" 
-                                                            alt="No cover image"
-                                                          />
-                                                        <% } %>
-                                                      </div>
-                                                      <div class="card-info background-card" style="overflow: visible;">
-                                                        <div class="card-rating">
-                                                          <div class="card-left"></div>
-                                                          <div class="card-right">
-                                                            <span class="rating"><%= tour.location %></span>
-                                                          </div>
-                                                        </div>
-                                                        <div class="card-title">
-                                                          <a class="neutral-1000" href="/tour/<%= tour._id %>"><%= tour.name %></a>
-                                                        </div>
-                                                        <div class="card-program">
-                                                          <div class="card-duration-tour">
-                                                            <p class="icon-duration text-sm-medium neutral-500 mb-0">
-                                                              <%= tour.durationDays %> Days (<%= tour.durationHours %> hours)
-                                                            </p>
-                                                          </div>
-                                                          <div class="endtime">
-                                                            <div class="card-price">
-                                                              <h6 class="heading-6 neutral-1000">
-                                                                <span class="currency_amount" data-amount="<%= tour.price %>">
-                                                                  <span class="currency_symbol">ZAR</span><%= tour.price %>
-                                                                </span>
-                                                              </h6>
-                                                              <p class="text-md-medium neutral-500"> / ticket</p>
-                                                            </div>
-                                                            <div class="card-button">
-                                                              <a class="btn btn-gray" href="/tour/<%= tour._id %>">Book Now</a>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                <% }) %>
-                                              </div>
-                                        
-                                      
-                                      
-                                       
-                                        
-                                    </div>
-                    		</div>
-				</div>
+            <div class="elementor-element elementor-element-77ac98f elementor-widget elementor-widget-tr-booking-layout" data-id="77ac98f" data-element_type="widget" data-widget_type="tr-booking-layout.default">
+                <div class="elementor-widget-container">
+                  <div class="row">
+                    <div class="row">
+                      <% tours.slice(0, 6).forEach(tour => { %>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                          <div class="card-journey-small background-card">
+                            <div class="card-image">
+                              <!-- Optional "Best Sale" label (customize condition as needed) -->
+                              <% if (tour.price < 100) { %>
+                                <a class="label" href="#" style="color: #3DC262;">Best Sale</a>
+                              <% } %>
+                              <% if (tour.coverImage) { %>
+                                <img 
+                                  loading="lazy" 
+                                  decoding="async" 
+                                  width="640" 
+                                  height="428" 
+                                  src="<%= tour.coverImage %>" 
+                                  class="attachment-large size-large" 
+                                  alt="<%= tour.name %>" 
+                                  onerror="this.onerror=null; this.src='/wp-content/uploads/placeholder.jpg';"
+                                />
+                              <% } else { %>
+                                <img 
+                                  loading="lazy" 
+                                  decoding="async" 
+                                  width="640" 
+                                  height="428" 
+                                  src="/wp-content/uploads/placeholder.jpg" 
+                                  class="attachment-large size-large" 
+                                  alt="No cover image"
+                                />
+                              <% } %>
+                            </div>
+                            <div class="card-info background-card" style="overflow: visible;">
+                              <div class="card-rating">
+                                <div class="card-left"></div>
+                                <div class="card-right">
+                                  <span class="rating"><%= tour.location %></span>
+                                </div>
+                              </div>
+                              <div class="card-title">
+                                <a class="neutral-1000" href="/tour/<%= tour._id %>"><%= tour.name %></a>
+                              </div>
+                              <div class="card-program">
+                                <div class="card-duration-tour">
+                                  <p class="icon-duration text-sm-medium neutral-500 mb-0">
+                                    <%= tour.durationDays %> Days (<%= tour.durationHours %> hours)
+                                  </p>
+                                </div>
+                                <div class="endtime">
+                                  <div class="card-price">
+                                    <h6 class="heading-6 neutral-1000">
+                                      <span class="currency_amount" data-amount="<%= tour.price %>">
+                                        <span class="currency_symbol">ZAR</span><%= tour.price %>
+                                      </span>
+                                    </h6>
+                                    <p class="text-md-medium neutral-500"> / ticket</p>
+                                  </div>
+                                  <div class="card-button">
+                                    <a class="btn btn-gray" href="/tour/<%= tour._id %>">Book Now</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% }) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
 				<div class="elementor-element elementor-element-c93e41f elementor-widget elementor-widget-tg-btn" data-id="c93e41f" data-element_type="widget" data-widget_type="tg-btn.default">
 				<div class="elementor-widget-container">
 			
 
         
                             <div class="btn-wrap d-flex">
-                    <a href="../tour-sidebar-left-filter/index.html" target="_self" rel="nofollow" class="tg-btn btn btn-black-lg">
+                    <a href="/all-tours" target="_self" rel="nofollow" class="tg-btn btn btn-black-lg">
                         Load More Tours                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 15L15 8L8 1M15 8L1 8" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
