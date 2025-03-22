@@ -9,7 +9,6 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 const multer = require('multer');
 
-
 // Log environment variables to verify loading
 console.log('Environment Variables Loaded:', {
   MONGODB_URI: process.env.MONGODB_URI ? '[SET]' : 'undefined',
@@ -26,7 +25,6 @@ console.log('Environment Variables Loaded:', {
 if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
   throw new Error('Missing Cloudinary environment variables. Check Vercel settings or .env file.');
 }
-
 
 const app = express();
 
@@ -53,7 +51,7 @@ app.use(session({
 }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../public'))); // Serve static files first
 app.use(methodOverride('_method'));
 
 // Connect to DB
@@ -109,18 +107,30 @@ app.get('/all-tours', async (req, res) => {
   }
 });
 
-// Tour details route
+// Tour details route (merged and optimized)
 app.get('/tour/:id', async (req, res) => {
   try {
     const Tour = require('../models/Tour');
-    const tour = await Tour.findById(req.params.id);
+    // Use fetchTourData with a 5-second timeout to fetch tour data
+    const tour = await fetchTourData(req.params.id, { timeout: 5000 });
     if (!tour) return res.status(404).send('Tour not found');
-    res.render('tour-details', { tour });
-  } catch (error) {
-    console.error('Error fetching tour:', error);
-    res.status(500).send('Server error');
+    res.render('tour-details', { tour }); // Use 'tour-details' to match your original
+  } catch (err) {
+    console.error('Error fetching tour:', err);
+    res.status(500).send('Server Error');
   }
 });
+
+// Helper function to fetch tour data with timeout
+async function fetchTourData(id, options) {
+  const Tour = require('../models/Tour');
+  const start = Date.now();
+  const tour = await Tour.findById(id).maxTimeMS(options.timeout); // MongoDB query timeout
+  const duration = Date.now() - start;
+  console.log(`fetchTourData took ${duration}ms for tour ID: ${id}`);
+  if (!tour) throw new Error('Tour not found');
+  return tour;
+}
 
 // CMS Route
 app.get('/cms', async (req, res) => {
