@@ -5,13 +5,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.js" },
-    { 
-      "src": "/wp-content/(.*)", 
-      "dest": "/public/wp-content/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
     { "src": "/(.*)", "dest": "api/index.js" }
   ]
 }
