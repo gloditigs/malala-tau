@@ -133,6 +133,13 @@
     <meta name="msapplication-TileImage" content="/wp-content/uploads/2024/09/cropped-travila-fav-270x270.png" />
 
     <style id="kirki-inline-styles"></style>
+
+    <script>
+        document.querySelectorAll('link[rel="preload"][as="style"]').forEach(link => {
+          link.onload = () => link.rel = 'stylesheet';
+          link.onerror = () => console.error(`Failed to load CSS: ${link.href}`);
+        });
+      </script>
 </head>
 
 <body class="page-template page-template-elementor_header_footer page page-id-824 wp-embed-responsive no-sidebar background-body elementor-default elementor-template-full-width elementor-kit-11 elementor-page elementor-page-824">

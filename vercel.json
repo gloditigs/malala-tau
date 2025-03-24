@@ -5,7 +5,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.js" },
-    { "src": "/wp-content/(.*)", "dest": "/wp-content/$1" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
     { "src": "/(.*)", "dest": "api/index.js" }
   ]
 }
