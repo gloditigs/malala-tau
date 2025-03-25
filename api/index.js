@@ -95,44 +95,16 @@ app.get('/', async (req, res) => {
   }
 });
 
-// All Tours route with search filter logic
+// All Tours route with location-only filter
 app.get('/all-tours', async (req, res) => {
   try {
     const Tour = require('../models/Tour');
-    const { tr_categories, tr_locations, tr_date_from, tr_date_to, tr_guests } = req.query;
+    const { tr_locations } = req.query;
 
-    // Parse guest counts (assuming format: "adults,children,youth")
-    const [adults = 0, children = 0, youth = 0] = tr_guests ? tr_guests.split(',').map(Number) : [0, 0, 0];
-    const totalGuests = adults + children + youth;
-
-    // Build query object for filtering
+    // Build query object for filtering by location only
     let query = {};
-
-    // Filter by category
-    if (tr_categories) {
-      query.category = tr_categories;
-    }
-
-    // Filter by location
     if (tr_locations) {
       query.location = tr_locations;
-    }
-
-    // Filter by date range (assuming Tour model has an availabilityDates field)
-    if (tr_date_from && tr_date_to) {
-      const startDate = new Date(tr_date_from);
-      const endDate = new Date(tr_date_to);
-      query.availabilityDates = {
-        $elemMatch: {
-          start: { $lte: endDate },
-          end: { $gte: startDate }
-        }
-      };
-    }
-
-    // Filter by guest capacity (assuming Tour model has a maxGuests field)
-    if (totalGuests > 0) {
-      query.maxGuests = { $gte: totalGuests };
     }
 
     console.log('Search filter query:', query);
@@ -140,16 +112,10 @@ app.get('/all-tours', async (req, res) => {
     // Fetch filtered tours
     const tours = await Tour.find(query);
 
-    // Render all-tours.ejs with filtered tours and search parameters
+    // Render all-tours.ejs with filtered tours and location parameter
     res.render('all-tours', {
       tours,
-      category: tr_categories || '',
-      location: tr_locations || '',
-      dateFrom: tr_date_from || '',
-      dateTo: tr_date_to || '',
-      adults,
-      children,
-      youth
+      location: tr_locations || ''
     });
   } catch (error) {
     console.error('Error in all-tours route:', error);
