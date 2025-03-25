@@ -5,11 +5,14 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.js" },
- 
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/wp-content/uploads/elementor/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/wp-content/plugins/elementor/assets/js/(.*)", "dest": "/public/js/$1" },
     { "src": "/wp-content/themes/travila/assets/css/(.*)", "dest": "/public/wp-content/themes/travila/assets/css/$1" },
     { "src": "/wp-content/themes/travila/assets/js/(.*)", "dest": "/public/wp-content/themes/travila/assets/js/$1" },
     { "src": "/wp-content/themes/travila/(styled1c0.css)", "dest": "/public/wp-content/themes/travila/$1" },
-  
+    // Plugin Assets
     { "src": "/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/(.*)", "dest": "/public/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/$1" },
     { "src": "/wp-content/plugins/ba-book-everything/css/(.*)", "dest": "/public/wp-content/plugins/ba-book-everything/css/$1" },
     { "src": "/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/(.*)", "dest": "/public/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/$1" },
@@ -26,16 +29,16 @@
     { "src": "/wp-content/plugins/elementor/assets/js/(.*)", "dest": "/public/wp-content/plugins/elementor/assets/js/$1" },
     { "src": "/wp-content/plugins/ba-book-everything/css/admin/(.*)", "dest": "/public/wp-content/plugins/ba-book-everything/css/admin/$1" },
     { "src": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/(.*)", "dest": "/public/wp-content/plugins/elementor/assets/lib/font-awesome/css/$1" },
-    
+    // Elementor Uploads
     { "src": "/wp-content/uploads/elementor/css/(.*)", "dest": "/public/wp-content/uploads/elementor/css/$1" },
-   
+    // WordPress Core JS
     { "src": "/wp-includes/js/(.*)", "dest": "/public/wp-includes/js/$1" },
     { "src": "/wp-includes/js/dist/(.*)", "dest": "/public/wp-includes/js/dist/$1" },
     { "src": "/wp-includes/js/jquery/(.*)", "dest": "/public/wp-includes/js/jquery/$1" },
     { "src": "/wp-includes/js/jquery/ui/(.*)", "dest": "/public/wp-includes/js/jquery/ui/$1" },
-  
-    { "src": "/wp-content/(.*)", "dest": "api/index.js" },
-    { "src": "/wp-includes/(.*)", "dest": "api/index.js" },
+    { "src": "/wp-includes/js/jquery/(.*)", "dest": "/public/js/$1" },
+    { "src": "/wp-content/(.*)", "dest": "api/index.js" }, 
+    { "src": "/wp-includes/(.*)", "dest": "api/index.js" }, 
     { "src": "/(.*)", "dest": "api/index.js" }
   ]
 }
