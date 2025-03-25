@@ -587,90 +587,155 @@ of the World Every Day</h2>
 				</div>
 				<div class="elementor-element elementor-element-be0fa52 elementor-widget elementor-widget-tc-ba-search-form" data-id="be0fa52" data-element_type="widget" id="short-search-form" data-widget_type="tc-ba-search-form.default">
 				<div class="elementor-widget-container">
-			        <form action="/search-result" method="get">
-        <div class="box-search-advance background-card top-0 m-0">
-            <div class="box-top-search">
-                <div class="left-top-search">
-                                        <a class="category-link btn-click active" href="javascript:void(0);" data-value="activities">Activities</a>
-                                        <a class="category-link btn-click " href="javascript:void(0);" data-value="car">Car</a>
-                                        <a class="category-link btn-click " href="javascript:void(0);" data-value="hotel">Hotel</a>
-                                        <a class="category-link btn-click " href="javascript:void(0);" data-value="rental">Rental</a>
-                                        <a class="category-link btn-click " href="javascript:void(0);" data-value="tour">Tour</a>
-                                        <input type="hidden" name="tr_categories" value="">
-                </div>
-              <div class="right-top-search"><a class="text-sm-medium need-some-help" target="_blank" href="#">Need some help?</a></div>
-            </div>
-            <div class="box-bottom-search background-card">
-                                <div class="item-search">
-                    <label class="text-sm-bold neutral-500">Location</label>
-                    <div class="dropdown tr-location-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle btn-dropdown-search location-search" type="button" data-bs-toggle="dropdown" aria-expanded="false">Barcelona Beach</button>
-                        <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item tr-locations" data-location="Barcelona Beach" href="barcelona-beach.html">Barcelona Beach</a></li>
-                                                        <li><a class="dropdown-item tr-locations" data-location="Caribbean Cove" href="caribbean-cove.html">Caribbean Cove</a></li>
-                                                        <li><a class="dropdown-item tr-locations" data-location="Dubai Oasis" href="dubai-oasis.html">Dubai Oasis</a></li>
-                                                        <li><a class="dropdown-item tr-locations" data-location="London Luxe" href="london-luxe.html">London Luxe</a></li>
-                                                        <li><a class="dropdown-item tr-locations" data-location="Maldives Haven" href="maldives-haven.html">Maldives Haven</a></li>
-                                                    </ul>
-                        <input type="hidden" name="tr_locations" value="Sydney, Australia">
-                    </div>
-                </div>
-                                <div class="item-search item-search-2">
-                    <label class="text-sm-bold neutral-500">Check In</label>
-                    <div class="box-calendar-date">
-                        <input class="search-input datepicker" type="text" placeholder="" value="04 March 2025" name="tr_date_from">
-                    </div>
-                </div>
-                <div class="item-search item-search-3">
-                    <label class="text-sm-bold neutral-500">Check Out</label>
-                    <div class="box-calendar-date">
-                        <input class="search-input datepicker" type="text" placeholder="" value="05 March 2025" name="tr_date_to">
-                    </div>
-                </div>
-                <div class="item-search bd-none">
-                    <label class="text-sm-bold neutral-500">Guest</label>
-                    <div class="dropdown tr-guests-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle btn-dropdown-search passenger-search tr-guest-counts" type="button" data-bs-toggle="dropdown" aria-expanded="false">1 adults, 0 children, 0 youth</button>
-                        <ul class="dropdown-menu tr-guests-dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <span class="tr-minus"><i class="fas fa-minus"></i></span>
-                                    <span class="text-sm-bold">Adults</span>
-                                    <span class="tr-count">1</span>
-                                    <span class="tr-plus"><i class="fas fa-plus"></i></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <span class="tr-minus"><i class="fas fa-minus"></i></span>
-                                    <span class="text-sm-bold">Youth</span>
-                                    <span class="tr-count">0</span>
-                                    <span class="tr-plus"><i class="fas fa-plus"></i></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <span class="tr-minus"><i class="fas fa-minus"></i></span>
-                                    <span class="text-sm-bold">Children</span>
-                                    <span class="tr-count">0</span>
-                                    <span class="tr-plus"><i class="fas fa-plus"></i></span>
-                                </a>
-                            </li>
-                        </ul>
-                        <input type="hidden" name="tr_guests" value="5">
-                    </div>
-                </div>
-                <div class="item-search bd-none d-flex justify-content-end">
-                    <button class="btn btn-black-lg" type="submit">
-                        <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                        Search
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
+                    <form action="/all-tours" method="get">
+                        <div class="box-search-advance background-card top-0 m-0">
+                          <div class="box-top-search">
+                            <div class="left-top-search">
+                              <a class="category-link btn-click active" href="javascript:void(0);" data-value="activities">Activities</a>
+                              <a class="category-link btn-click" href="javascript:void(0);" data-value="car">Car</a>
+                              <a class="category-link btn-click" href="javascript:void(0);" data-value="hotel">Hotel</a>
+                              <a class="category-link btn-click" href="javascript:void(0);" data-value="rental">Rental</a>
+                              <a class="category-link btn-click" href="javascript:void(0);" data-value="tour">Tour</a>
+                              <input type="hidden" name="tr_categories" value="tour">
+                            </div>
+                            <div class="right-top-search">
+                              <a class="text-sm-medium need-some-help" target="_blank" href="#">Need some help?</a>
+                            </div>
+                          </div>
+                          <div class="box-bottom-search background-card">
+                            <div class="item-search">
+                              <label class="text-sm-bold neutral-500">Location</label>
+                              <div class="dropdown tr-location-dropdown">
+                                <button class="btn btn-secondary dropdown-toggle btn-dropdown-search location-search" type="button" data-bs-toggle="dropdown" aria-expanded="false">Western Cape</button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item tr-locations" data-location="Western Cape" href="#">Western Cape</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Eastern Cape" href="#">Eastern Cape</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Northern Cape" href="#">Northern Cape</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Gauteng" href="#">Gauteng</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="KwaZulu-Natal" href="#">KwaZulu-Natal</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Free State" href="#">Free State</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="North West" href="#">North West</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Limpopo" href="#">Limpopo</a></li>
+                                  <li><a class="dropdown-item tr-locations" data-location="Mpumalanga" href="#">Mpumalanga</a></li>
+                                </ul>
+                                <input type="hidden" name="tr_locations" value="Western Cape">
+                              </div>
+                            </div>
+                            <div class="item-search item-search-2">
+                              <label class="text-sm-bold neutral-500">Check In</label>
+                              <div class="box-calendar-date">
+                                <input class="search-input datepicker" type="text" placeholder="" value="04 March 2025" name="tr_date_from">
+                              </div>
+                            </div>
+                            <div class="item-search item-search-3">
+                              <label class="text-sm-bold neutral-500">Check Out</label>
+                              <div class="box-calendar-date">
+                                <input class="search-input datepicker" type="text" placeholder="" value="05 March 2025" name="tr_date_to">
+                              </div>
+                            </div>
+                            <div class="item-search bd-none">
+                              <label class="text-sm-bold neutral-500">Guest</label>
+                              <div class="dropdown tr-guests-dropdown">
+                                <button class="btn btn-secondary dropdown-toggle btn-dropdown-search passenger-search tr-guest-counts" type="button" data-bs-toggle="dropdown" aria-expanded="false">1 adults, 0 children, 0 youth</button>
+                                <ul class="dropdown-menu tr-guests-dropdown-menu">
+                                  <li>
+                                    <a class="dropdown-item" href="#">
+                                      <span class="tr-minus"><i class="fas fa-minus"></i></span>
+                                      <span class="text-sm-bold">Adults</span>
+                                      <span class="tr-count">1</span>
+                                      <span class="tr-plus"><i class="fas fa-plus"></i></span>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a class="dropdown-item" href="#">
+                                      <span class="tr-minus"><i class="fas fa-minus"></i></span>
+                                      <span class="text-sm-bold">Youth</span>
+                                      <span class="tr-count">0</span>
+                                      <span class="tr-plus"><i class="fas fa-plus"></i></span>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a class="dropdown-item" href="#">
+                                      <span class="tr-minus"><i class="fas fa-minus"></i></span>
+                                      <span class="text-sm-bold">Children</span>
+                                      <span class="tr-count">0</span>
+                                      <span class="tr-plus"><i class="fas fa-plus"></i></span>
+                                    </a>
+                                  </li>
+                                </ul>
+                                <input type="hidden" name="tr_guests" value="1,0,0">
+                              </div>
+                            </div>
+                            <div class="item-search bd-none d-flex justify-content-end">
+                              <button class="btn btn-black-lg" type="submit">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                                Search
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      
+                      <!-- JavaScript to handle dynamic updates -->
+                      <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                          // Update category selection
+                          const categoryLinks = document.querySelectorAll('.category-link');
+                          const categoryInput = document.querySelector('input[name="tr_categories"]');
+                          categoryLinks.forEach(link => {
+                            link.addEventListener('click', function () {
+                              categoryLinks.forEach(l => l.classList.remove('active'));
+                              this.classList.add('active');
+                              categoryInput.value = this.getAttribute('data-value');
+                            });
+                          });
+                      
+                          // Update location selection
+                          const locationItems = document.querySelectorAll('.tr-locations');
+                          const locationButton = document.querySelector('.location-search');
+                          const locationInput = document.querySelector('input[name="tr_locations"]');
+                          locationItems.forEach(item => {
+                            item.addEventListener('click', function (e) {
+                              e.preventDefault();
+                              const location = this.getAttribute('data-location');
+                              locationButton.textContent = location;
+                              locationInput.value = location;
+                            });
+                          });
+                      
+                          // Update guest selection
+                          const guestDropdown = document.querySelector('.tr-guests-dropdown');
+                          const guestButton = guestDropdown.querySelector('.tr-guest-counts');
+                          const guestInput = document.querySelector('input[name="tr_guests"]');
+                          const guestCounts = guestDropdown.querySelectorAll('.tr-count');
+                          const updateGuestText = () => {
+                            const adults = guestCounts[0].textContent;
+                            const youth = guestCounts[1].textContent;
+                            const children = guestCounts[2].textContent;
+                            guestButton.textContent = `${adults} adults, ${children} children, ${youth} youth`;
+                            guestInput.value = `${adults},${children},${youth}`;
+                          };
+                          guestDropdown.querySelectorAll('.tr-plus').forEach((plus, index) => {
+                            plus.addEventListener('click', function (e) {
+                              e.preventDefault();
+                              guestCounts[index].textContent = parseInt(guestCounts[index].textContent) + 1;
+                              updateGuestText();
+                            });
+                          });
+                          guestDropdown.querySelectorAll('.tr-minus').forEach((minus, index) => {
+                            minus.addEventListener('click', function (e) {
+                              e.preventDefault();
+                              const count = parseInt(guestCounts[index].textContent);
+                              if (count > 0) {
+                                guestCounts[index].textContent = count - 1;
+                                updateGuestText();
+                              }
+                            });
+                          });
+                        });
+                      </script>
         		</div>
 				</div>
 				</div>

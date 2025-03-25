@@ -95,12 +95,62 @@ app.get('/', async (req, res) => {
   }
 });
 
-// All Tours route
+// All Tours route with search filter logic
 app.get('/all-tours', async (req, res) => {
   try {
     const Tour = require('../models/Tour');
-    const tours = await Tour.find(); // Fetch all tours
-    res.render('all-tours', { tours }); // Render all-tours.ejs with tours data
+    const { tr_categories, tr_locations, tr_date_from, tr_date_to, tr_guests } = req.query;
+
+    // Parse guest counts (assuming format: "adults,children,youth")
+    const [adults = 0, children = 0, youth = 0] = tr_guests ? tr_guests.split(',').map(Number) : [0, 0, 0];
+    const totalGuests = adults + children + youth;
+
+    // Build query object for filtering
+    let query = {};
+
+    // Filter by category
+    if (tr_categories) {
+      query.category = tr_categories;
+    }
+
+    // Filter by location
+    if (tr_locations) {
+      query.location = tr_locations;
+    }
+
+    // Filter by date range (assuming Tour model has an availabilityDates field)
+    if (tr_date_from && tr_date_to) {
+      const startDate = new Date(tr_date_from);
+      const endDate = new Date(tr_date_to);
+      query.availabilityDates = {
+        $elemMatch: {
+          start: { $lte: endDate },
+          end: { $gte: startDate }
+        }
+      };
+    }
+
+    // Filter by guest capacity (assuming Tour model has a maxGuests field)
+    if (totalGuests > 0) {
+      query.maxGuests = { $gte: totalGuests };
+    }
+
+    console.log('Search filter query:', query);
+
+    // Fetch filtered tours
+    const tours = await Tour.find(query);
+
+    // Render all-tours.ejs with filtered tours and search parameters
+    res.render('all-tours', {
+      tours,
+      category: tr_categories || '',
+      location: tr_locations || '',
+      dateFrom: tr_date_from || '',
+      dateTo: tr_date_to || '',
+      adults,
+      children,
+      youth
+    });
   } catch (error) {
     console.error('Error in all-tours route:', error);
     res.status(500).send('Server error');
@@ -111,10 +161,9 @@ app.get('/all-tours', async (req, res) => {
 app.get('/tour/:id', async (req, res) => {
   try {
     const Tour = require('../models/Tour');
-    // Use fetchTourData with a 5-second timeout to fetch tour data
     const tour = await fetchTourData(req.params.id, { timeout: 5000 });
     if (!tour) return res.status(404).send('Tour not found');
-    res.render('tour-details', { tour }); // Use 'tour-details' to match your original
+    res.render('tour-details', { tour });
   } catch (err) {
     console.error('Error fetching tour:', err);
     res.status(500).send('Server Error');
@@ -125,7 +174,7 @@ app.get('/tour/:id', async (req, res) => {
 async function fetchTourData(id, options) {
   const Tour = require('../models/Tour');
   const start = Date.now();
-  const tour = await Tour.findById(id).maxTimeMS(options.timeout); // MongoDB query timeout
+  const tour = await Tour.findById(id).maxTimeMS(options.timeout);
   const duration = Date.now() - start;
   console.log(`fetchTourData took ${duration}ms for tour ID: ${id}`);
   if (!tour) throw new Error('Tour not found');
