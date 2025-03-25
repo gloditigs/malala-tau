@@ -681,58 +681,25 @@ of the World Every Day</h2>
                       <!-- JavaScript to handle dynamic updates -->
                       <script>
                         document.addEventListener('DOMContentLoaded', function () {
-                          // Update category selection
-                          const categoryLinks = document.querySelectorAll('.category-link');
-                          const categoryInput = document.querySelector('input[name="tr_categories"]');
-                          categoryLinks.forEach(link => {
-                            link.addEventListener('click', function () {
-                              categoryLinks.forEach(l => l.classList.remove('active'));
-                              this.classList.add('active');
-                              categoryInput.value = this.getAttribute('data-value');
-                            });
-                          });
-                      
                           // Update location selection
                           const locationItems = document.querySelectorAll('.tr-locations');
                           const locationButton = document.querySelector('.location-search');
                           const locationInput = document.querySelector('input[name="tr_locations"]');
+                      
                           locationItems.forEach(item => {
                             item.addEventListener('click', function (e) {
                               e.preventDefault();
                               const location = this.getAttribute('data-location');
-                              locationButton.textContent = location;
-                              locationInput.value = location;
+                              locationButton.textContent = location; // Update button text
+                              locationInput.value = location; // Update hidden input value
+                              console.log('Selected location:', location); // Debug log
                             });
                           });
                       
-                          // Update guest selection
-                          const guestDropdown = document.querySelector('.tr-guests-dropdown');
-                          const guestButton = guestDropdown.querySelector('.tr-guest-counts');
-                          const guestInput = document.querySelector('input[name="tr_guests"]');
-                          const guestCounts = guestDropdown.querySelectorAll('.tr-count');
-                          const updateGuestText = () => {
-                            const adults = guestCounts[0].textContent;
-                            const youth = guestCounts[1].textContent;
-                            const children = guestCounts[2].textContent;
-                            guestButton.textContent = `${adults} adults, ${children} children, ${youth} youth`;
-                            guestInput.value = `${adults},${children},${youth}`;
-                          };
-                          guestDropdown.querySelectorAll('.tr-plus').forEach((plus, index) => {
-                            plus.addEventListener('click', function (e) {
-                              e.preventDefault();
-                              guestCounts[index].textContent = parseInt(guestCounts[index].textContent) + 1;
-                              updateGuestText();
-                            });
-                          });
-                          guestDropdown.querySelectorAll('.tr-minus').forEach((minus, index) => {
-                            minus.addEventListener('click', function (e) {
-                              e.preventDefault();
-                              const count = parseInt(guestCounts[index].textContent);
-                              if (count > 0) {
-                                guestCounts[index].textContent = count - 1;
-                                updateGuestText();
-                              }
-                            });
+                          // Optional: Log form submission for debugging
+                          const form = document.querySelector('form');
+                          form.addEventListener('submit', function (e) {
+                            console.log('Form submitted with tr_locations:', locationInput.value);
                           });
                         });
                       </script>
