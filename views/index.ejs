@@ -618,7 +618,7 @@ of the World Every Day</h2>
                                   <li><a class="dropdown-item tr-locations" data-location="Limpopo" href="#">Limpopo</a></li>
                                   <li><a class="dropdown-item tr-locations" data-location="Mpumalanga" href="#">Mpumalanga</a></li>
                                 </ul>
-                                <input type="hidden" name="tr_locations" value="Western Cape">
+                                <input type="hidden" name="tr_locations" value="Gauteng">
                               </div>
                             </div>
                             <div class="item-search item-search-2">
@@ -678,28 +678,28 @@ of the World Every Day</h2>
                         </div>
                       </form>
                       
-                      <!-- JavaScript to handle dynamic updates -->
+                      <!-- JavaScript to handle location selection -->
                       <script>
                         document.addEventListener('DOMContentLoaded', function () {
-                          // Update location selection
                           const locationItems = document.querySelectorAll('.tr-locations');
                           const locationButton = document.querySelector('.location-search');
                           const locationInput = document.querySelector('input[name="tr_locations"]');
+                          const form = document.querySelector('form');
                       
+                          // Update hidden input when a location is selected
                           locationItems.forEach(item => {
                             item.addEventListener('click', function (e) {
                               e.preventDefault();
-                              const location = this.getAttribute('data-location');
-                              locationButton.textContent = location; // Update button text
-                              locationInput.value = location; // Update hidden input value
-                              console.log('Selected location:', location); // Debug log
+                              const selectedLocation = this.getAttribute('data-location');
+                              locationButton.textContent = selectedLocation; // Update button text
+                              locationInput.value = selectedLocation; // Update hidden input
+                              console.log('Selected location:', selectedLocation); // Debug log
                             });
                           });
                       
-                          // Optional: Log form submission for debugging
-                          const form = document.querySelector('form');
+                          // Debug form submission
                           form.addEventListener('submit', function (e) {
-                            console.log('Form submitted with tr_locations:', locationInput.value);
+                            console.log('Form submitting with tr_locations:', locationInput.value);
                           });
                         });
                       </script>

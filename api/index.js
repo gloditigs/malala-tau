@@ -101,18 +101,18 @@ app.get('/all-tours', async (req, res) => {
     const Tour = require('../models/Tour');
     const { tr_locations } = req.query;
 
-    // Build query object for filtering by location only
     let query = {};
     if (tr_locations) {
       query.location = tr_locations;
     }
 
+    console.log('Received tr_locations:', tr_locations);
     console.log('Search filter query:', query);
 
-    // Fetch filtered tours
     const tours = await Tour.find(query);
 
-    // Render all-tours.ejs with filtered tours and location parameter
+    console.log('Found tours:', tours);
+
     res.render('all-tours', {
       tours,
       location: tr_locations || ''
