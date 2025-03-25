@@ -6,9 +6,12 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.js" },
     { "src": "/css/(.*)", "dest": "/public/css/$1" },
-    { "src": "/js/(.*)", "dest": "/public/js/$1" }, 
-    { "src": "/wp-content/(.*)", "dest": "/public/css/$1" }, 
-    { "src": "/wp-includes/(.*)", "dest": "/public/js/$1" }, 
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/wp-content/uploads/elementor/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/wp-content/plugins/elementor/assets/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/wp-includes/js/jquery/(.*)", "dest": "/public/js/$1" },
+    { "src": "/wp-content/(.*)", "dest": "api/index.js" }, 
+    { "src": "/wp-includes/(.*)", "dest": "api/index.js" }, 
     { "src": "/(.*)", "dest": "api/index.js" }
   ]
 }
