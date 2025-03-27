@@ -6,10 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
     <title>Home – Malala-Tau</title>
     <meta name="robots" content="max-image-preview:large" />
-    
+
+    <!-- Initially hide the body to prevent FOUC -->
+    <style>
+      body {
+        visibility: hidden;
+      }
+    </style>
 
     <!-- Critical CSS: Load synchronously (blocking) -->
     <link rel="stylesheet" href="/wp-content/themes/travila/assets/css/bootstrap.mind1c0.css" type="text/css" media="all" />
@@ -37,48 +42,41 @@
       }
     </style>
 
-    <!-- Non-critical CSS: Load asynchronously with preload -->
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/ion.rangeSlider.min4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/daterangepicker4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/select2.min4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/babe-modal4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/jquery-ui.min4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/all.min4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/babe-style4326.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/contact-form-7/includes/css/stylesdc24.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/travila-core/assets/css/feather5152.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-customd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-fontsd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/fontawesome-all.mind1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/uicons-regular-roundedd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/swiper-bundle.mind1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/magnific-popupd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/animated1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/select2.mind1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/perfect-scrollbard1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/carouselTickerd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/bootstrap-datepicker3d1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/slickd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-unitd1c0.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min705c.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/uploads/elementor/css/custom-frontend.min4dc3.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min94a4.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min1ffb.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/uploads/elementor/css/post-11ee87.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/plugins/elementor/assets/css/widget-image.min1ffb.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/uploads/elementor/css/custom-widget-icon-list.min4dc3.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-    <link rel="preload" href="/wp-content/uploads/elementor/css/post-824986f.css" as="style" onload="this.rel='stylesheet'" type="text/css" media="all" />
-
-    <!-- Noscript Fallback -->
-   
-
-  
+    <!-- Non-critical CSS: Preload and track loading -->
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/js/ion.rangeSlider/ion.rangeSlider.min4326.css" as="style" id="ion-rangeslider-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/daterangepicker4326.css" as="style" id="daterangepicker-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/select2.min4326.css" as="style" id="select2-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/babe-modal4326.css" as="style" id="babe-modal-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/jquery-ui.min4326.css" as="style" id="jquery-ui-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/fonts/fontawesome-free/css/all.min4326.css" as="style" id="fontawesome-css" />
+    <link rel="preload" href="/wp-content/plugins/ba-book-everything/css/babe-style4326.css" as="style" id="babe-style-css" />
+    <link rel="preload" href="/wp-content/plugins/contact-form-7/includes/css/stylesdc24.css" as="style" id="contact-form-7-css" />
+    <link rel="preload" href="/wp-content/plugins/travila-core/assets/css/feather5152.css" as="style" id="feather-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-customd1c0.css" as="style" id="travila-custom-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-fontsd1c0.css" as="style" id="travila-fonts-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/fontawesome-all.mind1c0.css" as="style" id="fontawesome-all-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/uicons-regular-roundedd1c0.css" as="style" id="uicons-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/swiper-bundle.mind1c0.css" as="style" id="swiper-bundle-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/magnific-popupd1c0.css" as="style" id="magnific-popup-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/animated1c0.css" as="style" id="animate-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/select2.mind1c0.css" as="style" id="select2-travila-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/perfect-scrollbard1c0.css" as="style" id="perfect-scrollbar-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/carouselTickerd1c0.css" as="style" id="carousel-ticker-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/bootstrap-datepicker3d1c0.css" as="style" id="bootstrap-datepicker-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/slickd1c0.css" as="style" id="slick-css" />
+    <link rel="preload" href="/wp-content/themes/travila/assets/css/travila-unitd1c0.css" as="style" id="travila-unit-css" />
+    <link rel="preload" href="/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min705c.css" as="style" id="elementor-icons-css" />
+    <link rel="preload" href="/wp-content/uploads/elementor/css/custom-frontend.min4dc3.css" as="style" id="custom-frontend-css" />
+    <link rel="preload" href="/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min94a4.css" as="style" id="swiper-css" />
+    <link rel="preload" href="/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min1ffb.css" as="style" id="e-swiper-css" />
+    <link rel="preload" href="/wp-content/uploads/elementor/css/post-11ee87.css" as="style" id="post-11-css" />
+    <link rel="preload" href="/wp-content/plugins/elementor/assets/css/widget-image.min1ffb.css" as="style" id="widget-image-css" />
+    <link rel="preload" href="/wp-content/uploads/elementor/css/custom-widget-icon-list.min4dc3.css" as="style" id="custom-widget-icon-list-css" />
+    <link rel="preload" href="/wp-content/uploads/elementor/css/post-824986f.css" as="style" id="post-824-css" />
 
     <!-- jQuery Scripts -->
     <script type="text/javascript" src="/wp-includes/js/jquery/jquery.minf43b.js"></script>
     <script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min5589.js"></script>
-
-    
 
     <!-- Metadata -->
     <meta name="generator" content="Custom CMS with Express and EJS" />
@@ -93,12 +91,43 @@
 
     <style id="kirki-inline-styles"></style>
 
+    <!-- Script to delay visibility until all CSS is loaded -->
     <script>
-        document.querySelectorAll('link[rel="preload"][as="style"]').forEach(link => {
-          link.onload = () => link.rel = 'stylesheet';
-          link.onerror = () => console.error(`Failed to load CSS: ${link.href}`);
-        });
-      </script>
+      (function() {
+        const cssFiles = [
+          'ion-rangeslider-css', 'daterangepicker-css', 'select2-css', 'babe-modal-css', 'jquery-ui-css',
+          'fontawesome-css', 'babe-style-css', 'contact-form-7-css', 'feather-css', 'travila-custom-css',
+          'travila-fonts-css', 'fontawesome-all-css', 'uicons-css', 'swiper-bundle-css', 'magnific-popup-css',
+          'animate-css', 'select2-travila-css', 'perfect-scrollbar-css', 'carousel-ticker-css',
+          'bootstrap-datepicker-css', 'slick-css', 'travila-unit-css', 'elementor-icons-css',
+          'custom-frontend-css', 'swiper-css', 'e-swiper-css', 'post-11-css', 'widget-image-css',
+          'custom-widget-icon-list-css', 'post-824-css'
+        ];
+
+        function loadCSS(id) {
+          return new Promise((resolve, reject) => {
+            const link = document.getElementById(id);
+            if (link) {
+              link.onload = () => resolve();
+              link.onerror = () => reject(new Error(`Failed to load ${link.href}`));
+              link.rel = 'stylesheet'; // Trigger loading
+            } else {
+              reject(new Error(`Link ${id} not found`));
+            }
+          });
+        }
+
+        Promise.all(cssFiles.map(id => loadCSS(id)))
+          .then(() => {
+            document.body.style.visibility = 'visible';
+            console.log('All CSS loaded');
+          })
+          .catch(err => {
+            console.error(err);
+            document.body.style.visibility = 'visible'; // Show anyway on error
+          });
+      })();
+    </script>
 </head>
 <body class="page-template page-template-elementor_header_footer page page-id-824 wp-embed-responsive no-sidebar background-body elementor-default elementor-template-full-width elementor-kit-11 elementor-page elementor-page-824">
 
