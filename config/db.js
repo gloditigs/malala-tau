@@ -12,21 +12,21 @@ const connectDB = async () => {
     console.time('MongoDB Connection');
     console.log('Connecting to:', process.env.MONGODB_URI);
     const connection = await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 9000, // 9 seconds to fit under 10s
-      connectTimeoutMS: 9000,
-      socketTimeoutMS: 9000
+      serverSelectionTimeoutMS: 5000, // 5s to fail fast
+      connectTimeoutMS: 5000,
+      socketTimeoutMS: 5000
     });
     console.timeEnd('MongoDB Connection');
     console.log('MongoDB connected');
     cachedConnection = connection;
     return connection;
   } catch (err) {
-    console.error('Connection error (non-fatal):', err.message);
-    return null; // Allow app to continue without DB
+    console.error('DB Connection failed:', err.message);
+    return null; // Non-fatal
   }
 };
 
-// Connect at startup
+// Initialize at startup
 connectDB();
 
 module.exports = connectDB;

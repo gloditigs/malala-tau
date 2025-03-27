@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const connectDB = require('../config/db');
+const connectDB = require('../config/db'); // Path to config/db.js
 const tourRoutes = require('./routes/tours');
 const bookingRoutes = require('./routes/bookings');
 const reviewsRouter = require('./routes/reviews');
@@ -9,7 +9,7 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 const multer = require('multer');
 
-// Log environment variables to verify loading
+// Log environment variables
 console.log('Environment Variables Loaded:', {
   MONGODB_URI: process.env.MONGODB_URI ? '[SET]' : 'undefined',
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
@@ -21,142 +21,121 @@ console.log('Environment Variables Loaded:', {
   SESSION_SECRET: process.env.SESSION_SECRET ? '[REDACTED]' : 'undefined'
 });
 
-// Validate critical environment variables
+// Validate Cloudinary vars
 if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-  throw new Error('Missing Cloudinary environment variables. Check Vercel settings or .env file.');
+  throw new Error('Missing Cloudinary environment variables.');
 }
 
 const app = express();
 
-// Multer setup for parsing multipart/form-data
+// Multer setup
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  console.log('Incoming Request:', {
-    method: req.method,
-    url: req.url,
-    headers: req.headers,
-    body: req.body
-  });
+  console.log('Incoming Request:', { method: req.method, url: req.url });
   next();
 });
-
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
   resave: false,
   saveUninitialized: true
 }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
-app.use(express.static(path.join(__dirname, '../public'))); // Serve static files first
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(methodOverride('_method'));
-
-// Connect to DB
-connectDB();
 
 // Routes
 app.use('/api/tours', tourRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/reviews', reviewsRouter);
 
-// Root route
+// Root route - Respond immediately if DB isn’t ready
 app.get('/', async (req, res) => {
-  try {
-    const Tour = require('../models/Tour');
-
-    // Directly query tour counts by location
-    const tourCounts = await Tour.aggregate([
-      { $group: { _id: '$location', count: { $sum: 1 } } },
-      { $project: { location: '$_id', count: 1, _id: 0 } }
-    ]);
-
-    const tourCountMap = tourCounts.reduce((acc, { location, count }) => {
-      acc[location] = count;
-      return acc;
-    }, {});
-
-    const allProvinces = [
-      'Western Cape', 'Eastern Cape', 'Northern Cape', 'Free State',
-      'KwaZulu-Natal', 'North West', 'Gauteng', 'Mpumalanga', 'Limpopo'
-    ];
-    allProvinces.forEach(province => {
-      if (!tourCountMap[province]) tourCountMap[province] = 0;
-    });
-
-    console.log('Tour counts by location:', tourCountMap);
-    const tours = await Tour.find();
-    res.render('index', { tourCounts: tourCountMap, tours });
-  } catch (error) {
-    console.error('Error in root route:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// All Tours route with location-only filter
-app.get('/all-tours', async (req, res) => {
-  try {
-    const Tour = require('../models/Tour');
-    const { tr_locations } = req.query;
-
-    let query = {};
-    if (tr_locations) {
-      query.location = tr_locations;
-    }
-
-    console.log('Received tr_locations:', tr_locations);
-    console.log('Search filter query:', query);
-
-    const tours = await Tour.find(query);
-
-    console.log('Found tours:', tours);
-
-    res.render('all-tours', {
-      tours,
-      location: tr_locations || ''
-    });
-  } catch (error) {
-    console.error('Error in all-tours route:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// Tour details route (merged and optimized)
-app.get('/tour/:id', async (req, res) => {
-  try {
-    const Tour = require('../models/Tour');
-    const tour = await fetchTourData(req.params.id, { timeout: 5000 });
-    if (!tour) return res.status(404).send('Tour not found');
-    res.render('tour-details', { tour });
-  } catch (err) {
-    console.error('Error fetching tour:', err);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Helper function to fetch tour data with timeout
-async function fetchTourData(id, options) {
   const Tour = require('../models/Tour');
-  const start = Date.now();
-  const tour = await Tour.findById(id).maxTimeMS(options.timeout);
-  const duration = Date.now() - start;
-  console.log(`fetchTourData took ${duration}ms for tour ID: ${id}`);
-  if (!tour) throw new Error('Tour not found');
-  return tour;
-}
+  let tours = [];
+  let tourCounts = {};
+
+  try {
+    const db = await connectDB();
+    if (db) {
+      const start = Date.now();
+      tourCounts = await Tour.aggregate([
+        { $group: { _id: '$location', count: { $sum: 1 } } },
+        { $project: { location: '$_id', count: 1, _id: 0 } }
+      ]).maxTimeMS(5000); // 5s timeout
+      tours = await Tour.find().maxTimeMS(5000);
+      console.log(`DB queries took ${Date.now() - start}ms`);
+      tourCounts = tourCounts.reduce((acc, { location, count }) => {
+        acc[location] = count;
+        return acc;
+      }, {});
+      const allProvinces = ['Western Cape', 'Eastern Cape', 'Northern Cape', 'Free State', 'KwaZulu-Natal', 'North West', 'Gauteng', 'Mpumalanga', 'Limpopo'];
+      allProvinces.forEach(province => {
+        if (!tourCounts[province]) tourCounts[province] = 0;
+      });
+    }
+  } catch (error) {
+    console.error('Root route DB error:', error.message);
+  }
+
+  res.render('index', { tourCounts, tours });
+});
+
+// All Tours route
+app.get('/all-tours', async (req, res) => {
+  const Tour = require('../models/Tour');
+  const { tr_locations } = req.query;
+  let tours = [];
+
+  try {
+    const db = await connectDB();
+    if (db) {
+      let query = tr_locations ? { location: tr_locations } : {};
+      tours = await Tour.find(query).maxTimeMS(5000);
+    }
+  } catch (error) {
+    console.error('All-tours route DB error:', error.message);
+  }
+
+  res.render('all-tours', { tours, location: tr_locations || '' });
+});
+
+// Tour details route
+app.get('/tour/:id', async (req, res) => {
+  const Tour = require('../models/Tour');
+  let tour = null;
+
+  try {
+    const db = await connectDB();
+    if (db) {
+      tour = await Tour.findById(req.params.id).maxTimeMS(5000);
+    }
+  } catch (err) {
+    console.error('Tour route DB error:', err.message);
+  }
+
+  res.render('tour-details', { tour: tour || null });
+});
 
 // CMS Route
 app.get('/cms', async (req, res) => {
+  const Tour = require('../models/Tour');
+  let tours = [];
+
   try {
-    const Tour = require('../models/Tour');
-    const tours = await Tour.find();
-    res.render('cms', { tours });
+    const db = await connectDB();
+    if (db) {
+      tours = await Tour.find().maxTimeMS(5000);
+    }
   } catch (error) {
-    console.error('Error fetching tours for CMS:', error);
-    res.status(500).send('Server error');
+    console.error('CMS route DB error:', error.message);
   }
+
+  res.render('cms', { tours });
 });
 
 module.exports = app;
