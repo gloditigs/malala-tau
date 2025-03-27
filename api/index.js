@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const connectDB = require('../config/db');
+const connectDB = require('../config/db'); // Correct path to config/db.js
 const tourRoutes = require('./routes/tours');
 const bookingRoutes = require('./routes/bookings');
 const reviewsRouter = require('./routes/reviews');
@@ -54,8 +54,14 @@ app.set('views', path.join(__dirname, '../views'));
 app.use(express.static(path.join(__dirname, '../public'))); // Serve static files first
 app.use(methodOverride('_method'));
 
-// Connect to DB
-connectDB();
+// Pre-connect to DB at startup
+let dbConnected = false;
+connectDB().then(() => {
+  dbConnected = true;
+  console.log('DB connection established at startup');
+}).catch(err => {
+  console.error('DB connection failed at startup:', err.message);
+});
 
 // Routes
 app.use('/api/tours', tourRoutes);
@@ -65,13 +71,13 @@ app.use('/api/reviews', reviewsRouter);
 // Root route
 app.get('/', async (req, res) => {
   try {
+    if (!dbConnected) throw new Error('DB not connected');
     const Tour = require('../models/Tour');
 
-    // Directly query tour counts by location
     const tourCounts = await Tour.aggregate([
       { $group: { _id: '$location', count: { $sum: 1 } } },
       { $project: { location: '$_id', count: 1, _id: 0 } }
-    ]);
+    ]).maxTimeMS(7000); // 7s timeout
 
     const tourCountMap = tourCounts.reduce((acc, { location, count }) => {
       acc[location] = count;
@@ -87,52 +93,47 @@ app.get('/', async (req, res) => {
     });
 
     console.log('Tour counts by location:', tourCountMap);
-    const tours = await Tour.find();
+    const tours = await Tour.find().maxTimeMS(7000); // 7s timeout
     res.render('index', { tourCounts: tourCountMap, tours });
   } catch (error) {
-    console.error('Error in root route:', error);
-    res.status(500).send('Server error');
+    console.error('Error in root route:', error.message);
+    res.render('index', { tourCounts: {}, tours: [], error: 'Database unavailable' });
   }
 });
 
 // All Tours route with location-only filter
 app.get('/all-tours', async (req, res) => {
   try {
+    if (!dbConnected) throw new Error('DB not connected');
     const Tour = require('../models/Tour');
     const { tr_locations } = req.query;
 
     let query = {};
-    if (tr_locations) {
-      query.location = tr_locations;
-    }
+    if (tr_locations) query.location = tr_locations;
 
     console.log('Received tr_locations:', tr_locations);
     console.log('Search filter query:', query);
 
-    const tours = await Tour.find(query);
+    const tours = await Tour.find(query).maxTimeMS(7000); // 7s timeout
 
     console.log('Found tours:', tours);
-
-    res.render('all-tours', {
-      tours,
-      location: tr_locations || ''
-    });
+    res.render('all-tours', { tours, location: tr_locations || '' });
   } catch (error) {
-    console.error('Error in all-tours route:', error);
-    res.status(500).send('Server error');
+    console.error('Error in all-tours route:', error.message);
+    res.render('all-tours', { tours: [], location: '', error: 'Database unavailable' });
   }
 });
 
-// Tour details route (merged and optimized)
+// Tour details route
 app.get('/tour/:id', async (req, res) => {
   try {
+    if (!dbConnected) throw new Error('DB not connected');
     const Tour = require('../models/Tour');
-    const tour = await fetchTourData(req.params.id, { timeout: 5000 });
-    if (!tour) return res.status(404).send('Tour not found');
+    const tour = await fetchTourData(req.params.id, { timeout: 7000 });
     res.render('tour-details', { tour });
   } catch (err) {
-    console.error('Error fetching tour:', err);
-    res.status(500).send('Server Error');
+    console.error('Error fetching tour:', err.message);
+    res.render('tour-details', { tour: null, error: 'Tour not found or database unavailable' });
   }
 });
 
@@ -150,12 +151,13 @@ async function fetchTourData(id, options) {
 // CMS Route
 app.get('/cms', async (req, res) => {
   try {
+    if (!dbConnected) throw new Error('DB not connected');
     const Tour = require('../models/Tour');
-    const tours = await Tour.find();
+    const tours = await Tour.find().maxTimeMS(7000); // 7s timeout
     res.render('cms', { tours });
   } catch (error) {
-    console.error('Error fetching tours for CMS:', error);
-    res.status(500).send('Server error');
+    console.error('Error fetching tours for CMS:', error.message);
+    res.render('cms', { tours: [], error: 'Database unavailable' });
   }
 });
 
