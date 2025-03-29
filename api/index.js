@@ -138,4 +138,9 @@ app.get('/cms', async (req, res) => {
   res.render('cms', { tours });
 });
 
+// In api/index.js or app.js
+app.get('/about-us', (req, res) => {
+  res.render('about-us');
+});
+
 module.exports = app;
