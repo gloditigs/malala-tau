@@ -143,4 +143,8 @@ app.get('/about-us', (req, res) => {
   res.render('about-us');
 });
 
+app.get('/contact-us', (req, res) => {
+  res.render('contact-us');
+});
+
 module.exports = app;
